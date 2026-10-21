@@ -1,0 +1,850 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Rule + NLP Skill Extraction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: technical report — sticky section index on the left, one reading column, wide tables scroll in place. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --fg: #1b2230;
+  --muted: #5a6476;
+  --line: #dde1e8;
+  --accent: #1f5fa8;          /* trigger / rule pass */
+  --accent-soft: #e3edf9;
+  --chunk: #7a4fb0;           /* noun-chunk / NLP pass */
+  --chunk-soft: #efe7f8;
+  --good: #1f7a4d;  --good-soft: #e2f3ea;
+  --warn: #9a6a00;  --warn-soft: #fbf0d6;
+  --bad: #b23a3a;   --bad-soft: #f8e3e3;
+  --code-bg: #eef1f5;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161d; --surface: #191f28; --fg: #e4e8ef; --muted: #9aa4b5; --line: #2c3442;
+    --accent: #7fb0ea; --accent-soft: #1d2d42; --chunk: #c2a0ec; --chunk-soft: #2c2340;
+    --good: #6fcf9f; --good-soft: #17322a; --warn: #e6c063; --warn-soft: #362c14;
+    --bad: #f08c8c; --bad-soft: #3a1f22; --code-bg: #1f2632; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161d; --surface: #191f28; --fg: #e4e8ef; --muted: #9aa4b5; --line: #2c3442;
+  --accent: #7fb0ea; --accent-soft: #1d2d42; --chunk: #c2a0ec; --chunk-soft: #2c2340;
+  --good: #6fcf9f; --good-soft: #17322a; --warn: #e6c063; --warn-soft: #362c14;
+  --bad: #f08c8c; --bad-soft: #3a1f22; --code-bg: #1f2632; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 15.5px/1.6 var(--font-body);
+  padding-inline: 16px; padding-block: 0 64px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 48px; }
+@media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; } nav.toc { display: none; } }
+
+header.top { max-width: 1180px; margin: 0 auto; padding-block: 48px 28px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 700 clamp(30px, 4.4vw, 44px)/1.12 var(--font-display); margin: 12px 0 12px; text-wrap: balance; letter-spacing: -.01em; }
+.lede { max-width: 68ch; color: var(--muted); font-size: 17px; margin: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 18px; font-size: 13.5px; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; max-height: calc(100vh - 40px); overflow-y: auto; font-size: 13.5px; padding-top: 4px; }
+nav.toc .grp { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+nav.toc .grp:first-child { margin-top: 0; }
+nav.toc a { display: block; color: var(--fg); text-decoration: none; padding: 3px 0 3px 10px; border-left: 2px solid transparent; }
+nav.toc a:hover, nav.toc a:focus-visible { border-left-color: var(--accent); color: var(--accent); outline: none; }
+
+main { min-width: 0; }
+section { padding-block: 8px 30px; border-bottom: 1px solid var(--line); margin-bottom: 26px; scroll-margin-top: 20px; }
+section:last-of-type { border-bottom: 0; }
+h2 { font: 600 25px/1.25 var(--font-display); margin: 0 0 4px; text-wrap: balance; display: flex; gap: 12px; align-items: baseline; }
+h2 .n { font: 500 13px/1 var(--font-mono); color: var(--muted); min-width: 2.2em; }
+h3 { font: 600 16.5px/1.35 var(--font-body); margin: 24px 0 8px; }
+p, li { max-width: 72ch; }
+p { margin: 10px 0; }
+ul, ol { padding-left: 22px; margin: 8px 0; }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-size: .88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font: 13px/1.55 var(--font-mono); margin: 12px 0; }
+pre code { background: none; padding: 0; font-size: inherit; }
+strong { font-weight: 600; }
+.muted { color: var(--muted); }
+
+.tbl { overflow-x: auto; margin: 12px 0 16px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.8px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; background: var(--code-bg); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* key figures */
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0 6px; }
+.fig { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+.fig .v { font: 600 24px/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.fig .k { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+/* pipeline flow */
+.flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 14px 0; font-size: 13px; }
+.flow span.step { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 5px 9px; }
+.flow span.step.r { border-color: var(--accent); color: var(--accent); }
+.flow span.step.c { border-color: var(--chunk); color: var(--chunk); }
+.flow .arr { color: var(--muted); }
+
+/* annotated sentences: the trigger phrase, the captured span, and the atomic outputs */
+.ann { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.ann .src { font-size: 14.5px; }
+.ann .id { font: 12px var(--font-mono); color: var(--muted); margin-bottom: 4px; }
+.trg { background: var(--accent-soft); color: var(--accent); font-weight: 600; padding: 0 3px; border-radius: 3px; }
+.cap { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.outs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+.outs .lbl { font-size: 12px; color: var(--muted); margin-right: 2px; }
+.chip { font: 12.5px/1.5 var(--font-mono); padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--code-bg); }
+.chip.t { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.chip.c { border-color: var(--chunk); color: var(--chunk); background: var(--chunk-soft); }
+.chip.x { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); text-decoration: line-through; }
+.note-bad { color: var(--bad); font-size: 13px; margin-top: 6px; }
+
+.pill { font: 500 11.5px/1.6 var(--font-mono); padding: 0 7px; border-radius: 999px; white-space: nowrap; }
+.pill.hi { background: var(--good-soft); color: var(--good); }
+.pill.md { background: var(--warn-soft); color: var(--warn); }
+.pill.lo { background: var(--bad-soft); color: var(--bad); }
+.pill.t { background: var(--accent-soft); color: var(--accent); }
+.pill.c { background: var(--chunk-soft); color: var(--chunk); }
+
+.callout { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; max-width: 78ch; }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-soft); }
+.callout.good { border-left-color: var(--good); background: var(--good-soft); }
+
+.bars { display: grid; grid-template-columns: 70px minmax(0,1fr) 70px; gap: 6px 10px; align-items: center; font-size: 13.5px; margin: 12px 0; max-width: 640px; }
+.bars .bar { height: 14px; background: var(--accent); border-radius: 2px; min-width: 2px; }
+.bars .val { text-align: right; font-variant-numeric: tabular-nums; }
+
+.status { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 12px 0; }
+.status > div { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 16px; min-width: 0; }
+.status h4 { margin: 0 0 6px; font: 600 13px/1.3 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+.status .d h4 { color: var(--good); } .status .p h4 { color: var(--warn); } .status .nd h4 { color: var(--bad); }
+.status ul { margin: 0; padding-left: 18px; font-size: 14px; }
+
+blockquote.script { margin: 12px 0; padding: 4px 18px; border-left: 3px solid var(--accent); max-width: 74ch; font-size: 15.5px; }
+blockquote.script p { max-width: none; }
+details { margin: 8px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; }
+summary { cursor: pointer; font-weight: 600; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.qa dt { font-weight: 600; margin-top: 14px; }
+.qa dd { margin: 4px 0 0; max-width: 72ch; }
+.summary-flow { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.summary-flow > div { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.summary-flow > div:nth-last-child(-n+2) { border-bottom: 0; }
+.summary-flow .k { font: 600 12px/1.6 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; background: var(--code-bg); }
+@media (max-width: 560px) { .summary-flow { grid-template-columns: minmax(0,1fr); } .summary-flow .k { border-bottom: 0; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; }
+</style>
+
+<header class="top">
+  <div class="eyebrow">Taxonomy of Work capstone · Sprint 2</div>
+  <h1>Rule + NLP Skill Extraction</h1>
+  <p class="lede">A complete technical walkthrough of the skill extractor: what it does, every rule it uses, the actual results on the full LinkedIn corpus, where it works, where it fails, and how it performed.</p>
+  <div class="meta">
+    <span>Corpus <b>123,842 postings</b></span>
+    <span>Output <b>3,738,856 skill rows</b></span>
+    <span>Status <b>Extraction done · validation not started</b></span>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Sections">
+  <div class="grp">Overview</div>
+  <a href="#p1">1 What we built</a>
+  <a href="#p2">2 Files and code</a>
+  <a href="#p3">3 Dataset</a>
+  <a href="#p4">4 Development sample</a>
+  <div class="grp">Method</div>
+  <a href="#p5">5 Preprocessing</a>
+  <a href="#p6">6 Rule extraction</a>
+  <a href="#p7">7 spaCy extraction</a>
+  <a href="#p8">8 Why both methods</a>
+  <a href="#p9">9 Cleaning rules</a>
+  <a href="#p10">10 Atomic skills</a>
+  <a href="#p11">11 Deduplication</a>
+  <div class="grp">Output</div>
+  <a href="#p12">12 The Parquet file</a>
+  <a href="#p13">13 One row, traced</a>
+  <a href="#p14">14 Results</a>
+  <a href="#p15">15 Top skills</a>
+  <a href="#p16">16 Distribution</a>
+  <div class="grp">Quality</div>
+  <a href="#p17">17 Five real postings</a>
+  <a href="#p18">18 Good results</a>
+  <a href="#p19">19 False positives</a>
+  <a href="#p20">20 False negatives</a>
+  <a href="#p21">21 Assessment</a>
+  <a href="#p22">22 Manual validation</a>
+  <a href="#p23">23 Performance</a>
+</nav>
+
+<main>
+<p class="muted" style="margin-top:0">All numbers come from the code, the final Parquet file, the run log and stats files, or read-only diagnostic scripts. A determinism check re-ran the extractor in memory on 30 random postings and reproduced their Parquet rows exactly (30 of 30), so the step-by-step traces below match what the full run produced.</p>
+
+<section id="p1">
+<h2><span class="n">01</span>What we built</h2>
+<p><strong>The problem.</strong> Sprint 2 asks each team to turn free-text job postings into atomic skill statements that later sprints can cluster into a taxonomy. Our component is the rule + NLP extractor for the skills group.</p>
+<p><strong>What it does.</strong> For every posting it finds phrases that name a skill, cleans them, splits lists into single skills, removes repeats inside the posting, and stores one row per skill linked to the posting's <code>job_id</code>.</p>
+<div class="flow" aria-label="Pipeline">
+  <span class="step">postings.csv</span><span class="arr">→</span>
+  <span class="step">load &amp; dedupe texts</span><span class="arr">→</span>
+  <span class="step">normalize_text</span><span class="arr">→</span>
+  <span class="step">spaCy parse</span><span class="arr">→</span>
+  <span class="step">sentence labels</span><span class="arr">→</span>
+  <span class="step r">Pass 1: rules</span><span class="arr">→</span>
+  <span class="step r">atomic split</span><span class="arr">→</span>
+  <span class="step c">Pass 2: noun chunks</span><span class="arr">→</span>
+  <span class="step">cleaning</span><span class="arr">→</span>
+  <span class="step">dedupe</span><span class="arr">→</span>
+  <span class="step">Parquet</span>
+</div>
+<div class="tbl"><table>
+<tr><th>Stage</th><th>What happens</th></tr>
+<tr><td>Load</td><td><code>load_postings</code> joins <code>description</code> and <code>skills_desc</code>, drops the 7 empty texts, and hashes each (company, text) pair so identical texts are parsed once.</td></tr>
+<tr><td>Preprocessing</td><td><code>normalize_text</code> restores line and sentence breaks lost when HTML was stripped (glued words, bullets, numbered lists). Each line becomes its own sentence.</td></tr>
+<tr><td>spaCy</td><td><code>en_core_web_sm</code> tokenizes, tags parts of speech, parses dependencies (for noun chunks and sentences) and runs NER (used only as a filter).</td></tr>
+<tr><td>Sentence labels</td><td>Each sentence is marked boilerplate or not (EEO, pay, benefits, how to apply) and given a section: requirements, responsibilities, skip or other.</td></tr>
+<tr><td>Pass 1, rules</td><td>A "Skill: N years" regex, 41 forward trigger phrases ("experience with", "ability to"…) and backward heads ("… skills", "… experience").</td></tr>
+<tr><td>Atomic split</td><td>Lists after a trigger are split at commas, parentheses, "such as", and at "and/or" when it is clearly a list.</td></tr>
+<tr><td>Pass 2, NLP</td><td>spaCy noun chunks that do not overlap anything Pass 1 used, after section, NER, generic-word, role-word and pronoun filters.</td></tr>
+<tr><td>Cleaning</td><td><code>_clean_tokens</code> strips filler at both ends and rejects generic, too short, too long, pronoun and URL candidates.</td></tr>
+<tr><td>Dedupe</td><td>One row per lowercased statement per posting; the rule version wins over the noun-chunk version.</td></tr>
+<tr><td>Output</td><td>Rows are copied back to every <code>job_id</code> that shares the text, numbered, and written to Parquet with a stats JSON.</td></tr>
+</table></div>
+<p><strong>What comes out.</strong> <code>outputs/skill_statements_full.parquet</code>: 3,738,856 rows. Each row has the skill, the posting it came from, the method and trigger, the section, a confidence label and the evidence sentence.</p>
+</section>
+
+<section id="p2">
+<h2><span class="n">02</span>Files and code</h2>
+<div class="tbl"><table>
+<tr><th>File</th><th>Role</th><th>Key functions</th><th>Input → output</th></tr>
+<tr><td><code>skill_extraction/patterns.py</code><br><span class="muted">366 lines</span></td><td>Every tunable list and constant. No logic.</td><td>—</td><td>Imported by <code>extractor.py</code></td></tr>
+<tr><td><code>skill_extraction/extractor.py</code><br><span class="muted">480 lines</span></td><td>Core extraction logic</td><td><code>normalize_text</code>, <code>newline_sentences</code>, <code>_is_heading</code>, <code>section_labels</code>, <code>is_boilerplate</code>, <code>_norm</code>, <code>SkillExtractor</code> (<code>extract_many</code>, <code>_extract_doc</code>, <code>_capture_forward</code>, <code>_capture_backward</code>, <code>_split_list</code>, <code>_split_verbs</code>, <code>_clean_tokens</code>, <code>_dedupe</code>)</td><td>Raw text → list of row dicts</td></tr>
+<tr><td><code>skill_extraction/build_sample.py</code></td><td>Builds the development sample</td><td><code>assign_family</code>, <code>build_sample</code>, <code>coverage_report</code></td><td>postings.csv → <code>outputs/sample_postings.csv</code>, <code>sample_coverage.md</code></td></tr>
+<tr><td><code>skill_extraction/extract_skills.py</code></td><td>End-to-end runner (CLI)</td><td><code>load_postings</code>, <code>run</code>, <code>_init_worker</code>, <code>_process_batch</code>, <code>summarize</code></td><td>CSV → Parquet (+ CSV), stats JSON, checkpoint parts</td></tr>
+<tr><td><code>skill_extraction/show_examples.py</code></td><td>Presentation examples</td><td><code>pick_examples</code>, <code>render</code></td><td>Sample + sample Parquet → <code>outputs/example_postings.md</code></td></tr>
+<tr><td><code>README.md</code>, <code>requirements.txt</code>, <code>__init__.py</code></td><td>Docs, pinned versions, package marker</td><td>—</td><td>—</td></tr>
+</table></div>
+<pre><code>build_sample.py ─► outputs/sample_postings.csv ─┐
+                                                ▼
+postings.csv ─────────────────────────► extract_skills.py ──(10 worker processes)──► SkillExtractor ◄── patterns.py
+                                                ├─► outputs/_parts_&lt;name&gt;/part_*.parquet    (checkpoints)
+                                                ├─► outputs/skill_statements_&lt;name&gt;.parquet  (+ .csv with --csv)
+                                                └─► outputs/skill_statements_&lt;name&gt;_stats.json
+skill_statements_sample.parquet ─► show_examples.py ─► outputs/example_postings.md</code></pre>
+<h3>Temporary, unused or leftover items</h3>
+<ul>
+<li><strong>Checkpoints:</strong> <code>outputs/_parts_skill_statements_full/</code> (55 files, 238 MB) and <code>_parts_skill_statements_sample/</code> (1.1 MB). Only needed to resume an interrupted run.</li>
+<li><strong>Generated:</strong> <code>__pycache__/</code>, <code>outputs/full_run.log</code>. No duplicate scripts exist.</li>
+<li><strong>Dead list entries in <code>patterns.py</code>:</strong> multi-word entries that can never match a single token (<code>"a plus"</code>, <code>"as well as"</code>, <code>"with the ability"</code>, <code>"the following"</code>, <code>"is a"</code>, <code>"an asset"</code>), and repeated entries (<code>"superb"</code>, <code>"excel"</code>, <code>"co"</code>, <code>"candidate"</code>, <code>"applicant"</code>). Harmless; "as well as" and "a plus" are handled by separate code.</li>
+<li><strong>README correction needed:</strong> it says "50+ cue phrases"; the code has <strong>41 forward triggers</strong>, 3 backward heads and 1 regex.</li>
+</ul>
+</section>
+
+<section id="p3">
+<h2><span class="n">03</span>Dataset</h2>
+<div class="tbl"><table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>File</td><td><code>postings.csv</code> (Kaggle LinkedIn job postings, 516,843,769 bytes)</td></tr>
+<tr><td>Rows × columns</td><td><strong>123,849 × 31</strong></td></tr>
+<tr><td>Columns used for extraction</td><td><code>job_id</code> (ID, 0 duplicates) · <code>title</code> (0 nulls) · <code>company_name</code> (1,719 nulls → "") · <code>location</code> · <code>description</code> (main text) · <code>skills_desc</code></td></tr>
+<tr><td>Extra columns for sampling</td><td><code>formatted_experience_level</code>, <code>formatted_work_type</code></td></tr>
+<tr><td>Missing descriptions</td><td>7 → excluded (empty text)</td></tr>
+<tr><td>Postings processed</td><td><strong>123,842</strong></td></tr>
+<tr><td>Duplicate descriptions</td><td>16,015 rows repeat an earlier description. Each unique (company, text) pair is parsed once (<strong>108,467 parses</strong>) and the result is copied to every posting sharing it. No posting is dropped as a duplicate.</td></tr>
+<tr><td><code>skills_desc</code></td><td>Present in 2,439 rows; appended to the description in 2,375 (the rest already appeared in the description)</td></tr>
+<tr><td>Industry column</td><td>Not present; the separate industry files were not available, so sampling uses job families instead</td></tr>
+</table></div>
+</section>
+
+<section id="p4">
+<h2><span class="n">04</span>Development sample</h2>
+<p><code>build_sample.py</code> with defaults <code>--size 400 --seed 42</code>, saved to <code>outputs/sample_postings.csv</code> with a coverage report in <code>outputs/sample_coverage.md</code>.</p>
+<ol>
+<li><strong>Filter:</strong> descriptions of at least 500 characters; duplicate descriptions dropped.</li>
+<li><strong>Job family:</strong> keywords in the <strong>title</strong> first; the first of 18 families that matches wins, so specific families are listed first. If the title matches nothing, keywords are counted in the first 3,000 characters of the <strong>description</strong> (needs at least 3 hits). Otherwise "Other / Unclassified". A keyword like <code>nurs</code> matches word starts; a keyword ending in a space (<code>it&nbsp;</code>) must be a whole word.</li>
+<li><strong>Variety:</strong> shuffle with seed 42, keep one posting per company and one per normalized title. Eligible pool: 16,967.</li>
+<li><strong>Even draw:</strong> 400 ÷ 19 = 21 per family, rotating through experience levels inside each family. That gives 399; one random posting tops it up to 400.</li>
+</ol>
+<div class="figs">
+  <div class="fig"><div class="v">400</div><div class="k">postings</div></div>
+  <div class="fig"><div class="v">399</div><div class="k">distinct companies</div></div>
+  <div class="fig"><div class="v">400</div><div class="k">distinct titles</div></div>
+  <div class="fig"><div class="v">19</div><div class="k">job families × 21 (Finance 22)</div></div>
+</div>
+<div class="tbl"><table>
+<tr><th>Experience level</th><th class="num">Postings</th><th>Family label came from</th><th class="num">Postings</th></tr>
+<tr><td>Associate</td><td class="num">61</td><td>Title keywords</td><td class="num">326</td></tr>
+<tr><td>Entry level</td><td class="num">59</td><td>Description keywords</td><td class="num">53</td></tr>
+<tr><td>Not stated</td><td class="num">59</td><td>None (Other)</td><td class="num">21</td></tr>
+<tr><td>Director</td><td class="num">58</td><td></td><td></td></tr>
+<tr><td>Mid-Senior level</td><td class="num">58</td><td></td><td></td></tr>
+<tr><td>Internship</td><td class="num">56</td><td></td><td></td></tr>
+<tr><td>Executive</td><td class="num">49</td><td></td><td></td></tr>
+</table></div>
+<p>Families: Administrative &amp; Office · Customer Service &amp; Support · Data &amp; Analytics · Design &amp; Creative · Education &amp; Training · Engineering (non-software) · Finance &amp; Accounting · Healthcare &amp; Clinical · Human Resources &amp; Recruiting · Legal &amp; Compliance · Management &amp; Executive · Manufacturing, Trades &amp; Maintenance · Marketing &amp; Communications · Operations, Logistics &amp; Supply Chain · Retail, Hospitality &amp; Food Service · Sales &amp; Business Development · Science &amp; Research · Software &amp; IT · Other / Unclassified.</p>
+<p><strong>Why not the first 500 rows?</strong> The most common titles are Sales Manager, Customer Service Representative and Project Manager, and the file is roughly ordered by collection time. Taking the first rows would tune the patterns on a few job types and companies. Stratifying meant every rule was checked against healthcare, trades, legal, software and retail text at once.</p>
+<p class="muted">Weakness: families are a keyword heuristic, and a few labels are wrong (for example "Bindery Worker" landed in HR).</p>
+</section>
+
+<section id="p5">
+<h2><span class="n">05</span>Preprocessing</h2>
+<p>Real before/after examples from <code>normalize_text</code>. Snippets are short windows, and "." is added to the end of every line, so a window that ends mid-word shows a stray period.</p>
+<div class="tbl"><table>
+<tr><th>Rule</th><th>Before</th><th>After</th></tr>
+<tr><td>HTML entities + glued words</td><td><code>&amp;nbsp;Job descriptionTurner Hydraulics Inc.</code></td><td><code>Job description.⏎Turner Hydraulics Inc.</code></td></tr>
+<tr><td>Byte-order mark, non-breaking space, \r</td><td><code>…these needs﻿Requirements: Minimum…</code></td><td><code>…these needs.⏎Requirements: Minimum…</code></td></tr>
+<tr><td>Bullet characters → new line</td><td><code>Qualifications:· Professional training…</code></td><td><code>Qualifications:⏎Professional training…</code></td></tr>
+<tr><td>Glued lower→Upper → new line</td><td><code>generic filesEvents &amp; Community- Plan</code></td><td><code>generic files.⏎Events &amp; Community.⏎Plan</code></td></tr>
+<tr><td>…except protected names (~150)</td><td><code>transactions.Update QuickBooks software</code></td><td><code>transactions. Update QuickBooks software</code></td></tr>
+<tr><td>ALL-CAPS glue</td><td><code>Wellness LLCAspen Therapy</code></td><td><code>Wellness LLC.⏎Aspen Therapy</code></td></tr>
+<tr><td>Missing space after punctuation</td><td><code>inclusion.Who you are:You must</code></td><td><code>inclusion. Who you are: You must</code></td></tr>
+<tr><td><code>)</code> followed by a capital</td><td><code>1 year (Preferred)Graphic design: 2 years</code></td><td><code>1 year (Preferred).⏎Graphic design: 2 years</code></td></tr>
+<tr><td>Inline bullet <code>word- Capital</code></td><td><code>over time.Agent Assistance- Receive</code></td><td><code>over time. Agent Assistance.⏎Receive</code></td></tr>
+<tr><td>Spaced dash before a capital</td><td><code>Attorney - Elder Law</code></td><td><code>Attorney.⏎Elder Law</code></td></tr>
+<tr><td>Leading <code>- * – — &gt;</code></td><td><code>⏎* Check conference room</code></td><td><code>Check conference room</code></td></tr>
+<tr><td>Null text</td><td><code>NaN</code></td><td><code>''</code></td></tr>
+</table></div>
+<p>Whitespace runs collapse to one space, empty lines are dropped, and a custom spaCy component (<code>newline_sentences</code>) forces a sentence break at every line.</p>
+<div class="callout bad"><strong>Side effect found:</strong> the numbered-list repair also removes a digit after a colon. <code>Schedule:8 hour shift</code> became <code>Schedule:⏎hour shift</code>.</div>
+<p><strong>Kept on purpose:</strong> letter case (needed to recognise proper nouns and acronyms), punctuation (commas and parentheses drive list splitting; <code>+</code> and <code>#</code> keep C++ and C#), stop words (the parser needs them) and numbers in the text (only stripped from the start of a statement).</p>
+<p><strong>Not implemented:</strong> HTML tag stripping (the text has no tags), Unicode normalization (curly ’ and straight ' stay different), spelling correction.</p>
+</section>
+
+<section id="p6">
+<h2><span class="n">06</span>Rule-based extraction</h2>
+<h3>The complete trigger list (41 forward phrases)</h3>
+<div class="tbl"><table>
+<tr><th>Group</th><th>Kind</th><th>Phrases</th></tr>
+<tr><td>experience (7)</td><td>noun</td><td>experience with · experience in · experience using · experience working with · experience working in · background in · exposure to</td></tr>
+<tr><td>proficiency (23)</td><td>noun</td><td>proficient in / with / using · proficiency in / with / using · skilled in · skilled at · skills in · expertise in · expertise with · fluent in · fluency in · competency in · competence in · mastery of · command of · versed in · adept at · adept in · certification in · certified in · trained in</td></tr>
+<tr><td>knowledge (6)</td><td>noun</td><td>knowledge of · knowledge in · understanding of · familiarity with · familiar with · comfortable with</td></tr>
+<tr><td>ability (5)</td><td>verb</td><td>ability to · abilities to · able to · capable of · capacity to</td></tr>
+<tr><td>Backward heads (3)</td><td>—</td><td><code>skills</code>, <code>skill</code> (head kept: "communication skills"); <code>experience</code> (head dropped: "Python experience" → "Python", except after customer, user, patient, guest, client, employee, candidate, member, shopper)</td></tr>
+<tr><td>Regex (1)</td><td>—</td><td><code>_YEARS_LINE_RE</code>: "Graphic design: 2 years (Preferred)" → "Graphic design"</td></tr>
+</table></div>
+<h3>How a trigger is processed</h3>
+<div class="tbl"><table>
+<tr><th>Question</th><th>What the code does</th></tr>
+<tr><td>Detection</td><td>spaCy <code>PhraseMatcher(attr="LOWER")</code> (case-insensitive). <code>filter_spans</code> keeps the longest match when matches overlap. Triggers inside boilerplate sentences are skipped.</td></tr>
+<tr><td>How much is captured</td><td>Tokens after the trigger, within the same sentence: at most <strong>14</strong> for noun triggers, <strong>24</strong> for verb triggers.</td></tr>
+<tr><td>Where capture stops</td><td>Punctuation <code>. ; : ! ? | •</code> or a newline · the start of another trigger · stop words (that, which, who, where, while, when, because, is/are/was/were, will/would/should/must/may, required, preferred, plus, highly, etc, but, coupled, combined, along, together…) · "as well as", "a plus" · noun triggers also stop at within, across, through, for, from, at, on, into, under, via and at "to" + verb · verb triggers also stop at parentheses</td></tr>
+<tr><td>Commas</td><td>Noun lists always split at <code>, ; ( ) [ ]</code>, including, such, e.g., i.e., like, especially, particularly, namely, and/or. Verb phrases split at commas only if every piece starts with a verb and has 2+ tokens.</td></tr>
+<tr><td>"and" / "or"</td><td>In noun lists they split only if the span has a comma, or the left part has 2+ tokens, or the left word is a proper noun. "health and safety" stays whole; "Excel and Word" splits.</td></tr>
+<tr><td>Bullets</td><td>Every bullet is its own sentence after preprocessing, so a capture never runs into the next bullet.</td></tr>
+<tr><td>Not swallowing sentences</td><td>Token caps, stop words and punctuation, word limits per statement (8 for noun items, 12 for verb phrases), and a 100-character limit.</td></tr>
+</table></div>
+<h3>Real examples</h3>
+<p class="muted"><span class="trg">blue</span> = trigger, <span class="cap">underlined</span> = captured span. Chips are the final rows.</p>
+<div class="ann"><div class="id">921716 · Marketing Coordinator</div>
+<div class="src">Please, be <span class="trg">proficient in</span> <span class="cap">Adobe Creative Cloud (Indesign, Illustrator, Photoshop) and Microsoft Office Suite</span>.</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">Adobe Creative Cloud</span><span class="chip t">Indesign</span><span class="chip t">Illustrator</span><span class="chip t">Photoshop</span><span class="chip t">Microsoft Office Suite</span></div></div>
+<div class="ann"><div class="id">2147609785</div>
+<div class="src">… <span class="cap">BI tools, such as Power BI and Tableau</span></div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">BI tools</span><span class="chip t">Power BI</span><span class="chip t">Tableau</span></div></div>
+<div class="ann"><div class="id">3813645405</div>
+<div class="src">… <span class="cap">SQL, Python, or R programming languages</span></div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">SQL</span><span class="chip t">Python</span><span class="chip t">R programming languages</span></div></div>
+<div class="ann"><div class="id">3881984061</div>
+<div class="src">… <span class="cap">the Microsoft Power Platform (Power Apps, Power Automate, Power BI)</span></div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">Microsoft Power Platform</span><span class="chip t">Power Apps</span><span class="chip t">Power Automate</span><span class="chip t">Power BI</span></div></div>
+<div class="ann"><div class="id">3906092894 · SAP EWM Solution Architect</div>
+<div class="src"><span class="trg">Experience in</span> <span class="cap">SAP EWM requirements gathering, preparation of functional specification documents, integration testing</span> …</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">SAP EWM requirements gathering</span><span class="chip t">preparation of functional specification documents</span><span class="chip t">integration testing</span></div></div>
+<div class="ann"><div class="id">3887499030 · Marketing Project Coordinator</div>
+<div class="src">Proven <span class="trg">experience with</span> <span class="cap">managing projects and events including trade shows</span> is preferred.</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">managing projects</span><span class="chip t">events</span><span class="chip t">trade shows</span></div></div>
+<div class="ann"><div class="id">3887499030 · same posting</div>
+<div class="src">1-3 years prior <span class="trg">experience in</span> <span class="cap">marketing or sales</span>.</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">marketing or sales</span></div>
+<div class="note-bad">Not split: the left side is one common noun and there is no comma.</div></div>
+<div class="ann"><div class="id">3887842016 · Registered Nurse Manager</div>
+<div class="src">Demonstrate thorough <span class="trg">knowledge of</span> <span class="cap">care and current clinical practice, treatments, and interventions, specific to position</span></div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">care</span><span class="chip t">clinical practice</span><span class="chip t">treatments</span><span class="chip t">interventions</span><span class="chip x">specific to position</span></div></div>
+<div class="ann"><div class="id">3887499030 · verb trigger</div>
+<div class="src">… with an <span class="trg">ability to</span> <span class="cap">motivate, persuade and positively interact with a wide variety of people</span></div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">motivate, persuade and positively interact with a wide variety of people</span></div>
+<div class="note-bad" style="color:var(--muted)">Kept whole: "motivate" is a single token, so the verb-list split does not apply.</div></div>
+<div class="ann"><div class="id">3901629370 · backward trigger</div>
+<div class="src">Outstanding communication, <span class="cap">negotiation, and conflict resolution</span> <span class="trg">skills</span>.</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">negotiation skills</span><span class="chip t">conflict resolution skills</span></div>
+<div class="note-bad">Missed "communication skills": the backward walk stops at 6 tokens.</div></div>
+<div class="ann"><div class="id">921716 · years regex</div>
+<div class="src">Experience: <span class="cap">Marketing</span>: <span class="trg">1 year</span> (Preferred) <span class="cap">Graphic design</span>: <span class="trg">2 years</span> (Preferred)</div>
+<div class="outs"><span class="lbl">→</span><span class="chip t">Marketing</span><span class="chip t">Graphic design</span></div></div>
+<div class="ann"><div class="id">3904429414 · failure</div>
+<div class="src"><span class="trg">Experience with</span> at least one scripting language (Bash, Go, Python)</div>
+<div class="outs"><span class="lbl">→</span><span class="chip x">nothing captured</span></div>
+<div class="note-bad">"at" is a noun stop word, so the capture is empty and Bash, Go and Python are lost.</div></div>
+</section>
+
+<section id="p7">
+<h2><span class="n">07</span>spaCy extraction</h2>
+<div class="tbl"><table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Versions</td><td>spaCy 3.8.16, model <code>en_core_web_sm</code> 3.8.0</td></tr>
+<tr><td>Loading</td><td><code>spacy.load(model, disable=["lemmatizer"])</code> plus the custom <code>newline_sentences</code> component before the parser</td></tr>
+<tr><td>Active pipeline</td><td><code>tok2vec, tagger, newline_sentences, parser, attribute_ruler, ner</code></td></tr>
+<tr><td>Batching</td><td><code>nlp.pipe(batch_size=32)</code> inside each of 10 worker processes; 50 texts per worker task; checkpoint every 2,000 texts</td></tr>
+<tr><td>Features used</td><td>tokenization · POS (<code>pos_</code>, <code>tag_</code>) · dependency parse (noun chunks, <code>chunk.root</code>, sentences) · NER (filter only) · <code>PhraseMatcher</code> · <code>filter_spans</code> · <code>is_stop</code>, <code>like_num</code>, <code>is_punct</code></td></tr>
+</table></div>
+<h3>What qualifies as a noun-chunk skill</h3>
+<p>A <code>doc.noun_chunks</code> entry is kept only if it passes all of these, in order:</p>
+<ol>
+<li>Its sentence is not boilerplate and not in a "skip" section (company intro, benefits, pay, physical demands, EEO).</li>
+<li>It contains no <code>. ! ? ,</code>.</li>
+<li>No token was already used by Pass 1.</li>
+<li>No token belongs to a GPE, LOC, PERSON, DATE, TIME, MONEY, PERCENT, CARDINAL, ORDINAL, QUANTITY, FAC or NORP entity.</li>
+<li>No pronoun (you, our, it, who…).</li>
+<li>The head noun is not a pronoun or number, not in <code>GENERIC_HEADS</code> (~220 words such as team, environment, opportunity) and not in <code>ROLE_HEADS</code> (~120 job-title words such as manager, nurse).</li>
+<li>The first word is not in <code>ACTION_VERBS</code> (catches Title Case task headings like "Submit Orders").</li>
+<li>It survives cleaning with chunk limits of 2–5 words. A single word survives only if it is a known tool (capitalized, in <code>KNOWN_SINGLE_TERMS</code>), an acronym of 2–6 capitals not in <code>BLOCKED_ACRONYMS</code>, CamelCase, or contains <code>+</code> or <code>#</code>.</li>
+<li>It is not the company name, a location part, or contained in the job title.</li>
+<li>A single-word chunk is dropped if it starts its sentence or sits in a heading line.</li>
+</ol>
+<h3>Real examples</h3>
+<div class="tbl"><table>
+<tr><th>Case</th><th>Examples</th></tr>
+<tr><td>Good extraction</td><td><span class="chip c">user acceptance testing</span> <span class="chip c">data migration activities</span> <span class="chip c">wave planning</span> <span class="chip c">cycle counts</span> (SAP posting 3906092894) · <span class="chip c">CI/CD pipelines</span> <span class="chip c">feature engineering</span> <span class="chip c">data ingestion</span> (AI Architect 3884830087)</td></tr>
+<tr><td>Found by spaCy, missed by rules</td><td>The SAP EWM bullet list above has no trigger at all. In 921716: <span class="chip c">social media</span> <span class="chip c">email marketing</span> <span class="chip c">brand strategy</span> <span class="chip c">online advertising</span>. Across the corpus, 9,294 postings with zero trigger hits still get noun-chunk skills.</td></tr>
+<tr><td>Noise that got through</td><td><span class="chip c">Site Position*POSITION OBJECTIVE</span> <span class="chip c">file cabinets</span> <span class="chip c">copy machine</span> <span class="chip c">Hourly Comp</span> <span class="chip c">Shift Length</span> <span class="chip c">primary point</span> (889 rows) <span class="chip c">bold representation</span> (248 rows, a retail slogan)</td></tr>
+<tr><td>Correctly removed</td><td><span class="chip x">the Marketing team</span> generic head · <span class="chip x">Organize Marketing Requests</span> action verb · <span class="chip x">New Jersey</span> NER · <span class="chip x">an administrative Marketing Coordinator</span> role head · <span class="chip x">our dynamic executive team</span> pronoun · <span class="chip x">a fast-paced environment</span> generic head</td></tr>
+</table></div>
+<p><strong>Why spaCy helps and why it is noisy.</strong> Noun chunks find every noun phrase, which is how bullet-list skills get caught. But most noun phrases in a posting are tasks, objects or company talk. The small model also mis-tags Title Case words, and NER drops some real skills: in 3884830087 the chunks "Machine Learning" and "Generative AI" were removed as entities, and in 3905256250 "Java" was tagged PERSON.</p>
+</section>
+
+<section id="p8">
+<h2><span class="n">08</span>Why we need both methods</h2>
+<div class="tbl"><table>
+<tr><th></th><th><span class="pill t">Rule / trigger</span></th><th><span class="pill c">NLP / noun chunk</span></th></tr>
+<tr><td>Strengths</td><td>Precise; the cue tells you the kind of skill; captures abilities as verb phrases; splits lists</td><td>Needs no cue; catches bullet lists, headings and requirement lines</td></tr>
+<tr><td>Weaknesses</td><td>Only fires where a cue exists; misses lists after ":" or "at least"; 6-token backward cap</td><td>Mostly topics and tasks; depends on POS and NER accuracy; needs many filters</td></tr>
+<tr><td>Rows</td><td class="num">1,073,949</td><td class="num">2,664,907</td></tr>
+<tr><td>Distinct statements</td><td class="num">309,931</td><td class="num">705,519</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Case</th><th>Real example</th></tr>
+<tr><td><strong>A.</strong> Rule catches it, NLP cannot help</td><td>"ability to motivate, persuade and positively interact…" (3887499030): noun chunks cannot produce verb phrases. "understanding of … Machine Learning, Generative AI" (3884830087): NER marked those chunks, so Pass 2 would have dropped them.</td></tr>
+<tr><td><strong>B.</strong> NLP catches what has no trigger</td><td>SAP posting: "user acceptance testing; UAT; data migration activities". 9,913 postings have no trigger hit at all; noun chunks find skills in 9,294 of them.</td></tr>
+<tr><td><strong>C.</strong> Both find the same skill</td><td>Same posting: the rule row wins and the chunk duplicate is dropped (81 times on the sample: "social media", "computer science", "data management"). Across postings: "project management" came from triggers in 2,122 postings and from chunks in 2,440. Distinct skills found by both: 35,545 of 979,905 (3.6%).</td></tr>
+<tr><td><strong>D.</strong> NLP noise removed by cleaning</td><td>On the sample, 13,025 single-word chunks ("understanding", "ease", "Marketing") were rejected, plus "the Marketing team", "Organize Marketing Requests", "our fun, kind, ambitious members".</td></tr>
+</table></div>
+</section>
+
+<section id="p9">
+<h2><span class="n">09</span>Cleaning rules</h2>
+<div class="tbl"><table>
+<tr><th>Rule</th><th>Exact value in the code</th></tr>
+<tr><td>Strip from the start, repeatedly</td><td>Words in <code>LEADING_FILLER</code> (a, the, strong, excellent, proven, deep, high, key, core, basic, working, professional, general, years, +…), number-like tokens, DET / CCONJ / ADP / PART / SCONJ, punctuation except <code>.</code> and <code>#</code>, spaces</td></tr>
+<tr><td>Strip from the end</td><td><code>TRAILING_FILLER</code> or <code>LEADING_FILLER</code> words; DET / CCONJ / ADP / AUX / SCONJ / PART; punctuation except <code>+ # ++</code>; for noun chunks, trailing verbs</td></tr>
+<tr><td>Finite-verb start</td><td>Rejected if the first tag is VB, VBP, VBZ, VBD or MD (noun, backward and chunk kinds)</td></tr>
+<tr><td>Pronouns</td><td>Rejected if it contains you, your, we, our or us</td></tr>
+<tr><td>Only stop words or punctuation</td><td>Rejected</td></tr>
+<tr><td>Word limits</td><td>Noun items 1–8 · verb phrases 1–12 · backward 1–7 · noun chunks 2–5 (or exactly 1 if it looks like a named tool)</td></tr>
+<tr><td>Character limits</td><td>2–100 characters of the normalized text</td></tr>
+<tr><td>Generic statements</td><td>About 150 phrases in <code>GENERIC_STATEMENTS</code> ("business", "tools", "work independently", "right skills"…)</td></tr>
+<tr><td>Letters, URLs</td><td>Must contain a letter; URLs and emails rejected</td></tr>
+<tr><td>Normalization <code>_norm</code></td><td>Lowercase; strip edge characters <code>" ' ` “ ” ‘ ’ . , ; : - – — *</code>; collapse whitespace</td></tr>
+</table></div>
+<h3>What cleaning did on the 400-posting sample</h3>
+<p>29,419 candidates reached the cleaner and 15,357 survived. Another 542 noun chunks fell to the company, title, location and heading filters, and 857 rows were duplicates, leaving the final 13,958.</p>
+<div class="tbl"><table>
+<tr><th>Raw candidate</th><th>Reason</th><th>Result</th><th class="num">Count</th></tr>
+<tr><td>chunk "understanding", "Marketing"</td><td>Single word, not a tool or acronym</td><td>dropped</td><td class="num">13,025</td></tr>
+<tr><td>chunk "socio-economic and multi-cultural backgrounds"</td><td>More than 5 words</td><td>dropped</td><td class="num">149</td></tr>
+<tr><td>verb "stand and walk for periods of eight to ten hours in length e…"</td><td>More than 12 words</td><td>dropped</td><td class="num">141</td></tr>
+<tr><td>noun "Business", "systems", "Teams"</td><td>Generic statement</td><td>dropped</td><td class="num">113</td></tr>
+<tr><td>chunk "Ensures compliance standards"</td><td>Starts with a finite verb</td><td>dropped</td><td class="num">71</td></tr>
+<tr><td>verb "work your entire shift using a computer"</td><td>Pronoun</td><td>dropped</td><td class="num">36</td></tr>
+<tr><td>noun "current clinical practice"</td><td>Leading filler "current"</td><td>→ clinical practice</td><td class="num">—</td></tr>
+<tr><td>noun "5 + years of functional consulting / solution architect"</td><td>Leading number and "years of"</td><td>→ functional consulting / solution architect</td><td class="num">—</td></tr>
+<tr><td>backward "Excellent written and verbal communication" + skills</td><td>Leading "Excellent"</td><td>→ written and verbal communication skills</td><td class="num">—</td></tr>
+<tr><td>noun "deep learning"</td><td>"deep" is on the filler list</td><td>→ learning <span class="pill lo">bug</span></td><td class="num">—</td></tr>
+</table></div>
+</section>
+
+<section id="p10">
+<h2><span class="n">10</span>Atomic skills</h2>
+<p>An <strong>atomic skill statement</strong> is one skill per row. "Python, SQL, Tableau and Power BI" becomes four rows: <code>_split_list</code> breaks at the commas, the "and" splits because the span contains a comma, and <code>_clean_tokens</code> strips the leftover "and".</p>
+<p>Splitting only happens at separators and conjunctions, never at plain spaces, so multi-word names stay whole. From the actual output:</p>
+<div class="tbl"><table>
+<tr><th>Phrase</th><th class="num">Rows</th><th>Kept intact</th></tr>
+<tr><td>machine learning</td><td class="num">739</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>natural language processing</td><td class="num">161</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>data engineering</td><td class="num">299</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>generative AI</td><td class="num">51</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>project management</td><td class="num">4,562</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>Amazon Web Services</td><td class="num">207</td><td><span class="pill hi">yes</span> "Amazon Web Services (AWS)" → both forms</td></tr>
+<tr><td>Power BI</td><td class="num">811</td><td><span class="pill hi">yes</span></td></tr>
+<tr><td>health and safety</td><td class="num">5</td><td><span class="pill hi">yes</span> "and" not split</td></tr>
+</table></div>
+<h3>Weaknesses found in the output</h3>
+<div class="tbl"><table>
+<tr><th>Problem</th><th>Original → result</th><th class="num">Rows</th></tr>
+<tr><td rowspan="6">Filler list removes part of a real skill name</td><td>key performance indicators → performance indicators</td><td class="num">1,383</td></tr>
+<tr><td>Basic Life Support → life support</td><td class="num">930</td></tr>
+<tr><td>deep learning → learning</td><td class="num">84</td></tr>
+<tr><td>general ledger → ledger</td><td class="num">69</td></tr>
+<tr><td>core Java → java</td><td class="num">30</td></tr>
+<tr><td>working capital → capital</td><td class="num">3</td></tr>
+<tr><td>Digits glued to words</td><td>"Machine Learning5", "AI environment5+ years of experience translating requirements", "Laravel Framework2+ years of full-time"</td><td class="num">—</td></tr>
+<tr><td>Not fully atomic</td><td>"marketing or sales"; "verbal and written communication skills" (backward matches split only at commas); "Tableau/Power BI" (slash is not a separator)</td><td class="num">5,203 for the second</td></tr>
+<tr><td>Split product name</td><td>"Power Point" written with a space → "Power" / "Point"</td><td class="num">471 "power"</td></tr>
+</table></div>
+</section>
+
+<section id="p11">
+<h2><span class="n">11</span>Deduplication</h2>
+<ul>
+<li><strong>Within one posting:</strong> <code>_dedupe</code> keeps the first row per <code>statement_norm</code>. Rows are created in the order years-regex → forward triggers → backward → noun chunks, so the rule version wins. Verified: <strong>0</strong> duplicate (job_id, statement_norm) pairs in the full file. On the sample, 857 rows were dropped (624 chunk-after-chunk, 152 trigger-after-trigger, 81 chunk-after-trigger).</li>
+<li><strong>Rule vs NLP:</strong> Pass 2 also skips any chunk that touches a token Pass 1 used, so most overlap never reaches dedupe.</li>
+<li><strong>Case and whitespace:</strong> <code>_norm</code> lowercases and collapses whitespace, so variants share one key while <code>statement</code> keeps the original spelling.</li>
+<li><strong>Across postings:</strong> not deduplicated, by design. "customer service" appears in 13,545 postings and has 13,545 rows. For every top skill, occurrences equal postings.</li>
+<li><strong>Identical posting texts:</strong> parsed once and copied to each posting (108,467 parses for 123,842 postings).</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>statement_norm</th><th>Spellings in <code>statement</code></th></tr>
+<tr><td><code>python</code></td><td>Python 3,358 · python 52 · PYTHON 3 · **Python 1</td></tr>
+<tr><td><code>machine learning</code></td><td>machine learning 609 · Machine Learning 120 · Machine learning 9 · MACHINE LEARNING 1</td></tr>
+<tr><td><code>excel</code></td><td>Excel 9,555 · excel 110 · EXCEL 72 · Excel. 2</td></tr>
+</table></div>
+<p><strong>Not unified:</strong> curly vs straight apostrophes ("valid driver’s license" 2,350 vs "valid driver's license" 1,684), plurals, and synonyms such as Excel vs "Microsoft Excel".</p>
+</section>
+
+<section id="p12">
+<h2><span class="n">12</span>The final Parquet file</h2>
+<div class="figs">
+  <div class="fig"><div class="v">318 MB</div><div class="k">317,994,984 bytes · Snappy · 4 row groups</div></div>
+  <div class="fig"><div class="v">3,738,856</div><div class="k">rows × 14 columns</div></div>
+  <div class="fig"><div class="v">123,223</div><div class="k">unique job_id</div></div>
+  <div class="fig"><div class="v">979,905</div><div class="k">unique statement_norm</div></div>
+</div>
+<p>Path: <code>outputs/skill_statements_full.parquet</code>. Case-sensitive unique statements: 1,036,420.</p>
+<div class="tbl"><table>
+<tr><th>Column</th><th>Type</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><code>statement_id</code></td><td>string</td><td><code>&lt;job_id&gt;_&lt;n&gt;</code>, in extraction order</td><td>921716_006</td></tr>
+<tr><td><code>job_id</code></td><td>int64</td><td>Posting ID</td><td>921716</td></tr>
+<tr><td><code>title</code></td><td>string</td><td>Job title</td><td>Marketing Coordinator</td></tr>
+<tr><td><code>company_name</code></td><td>string</td><td>Company</td><td>Corcoran Sawyer Smith</td></tr>
+<tr><td><code>statement</code></td><td>string</td><td>Cleaned skill</td><td>Photoshop</td></tr>
+<tr><td><code>statement_norm</code></td><td>string</td><td>Lowercased key</td><td>photoshop</td></tr>
+<tr><td><code>method</code></td><td>string</td><td>trigger / noun_chunk</td><td>trigger</td></tr>
+<tr><td><code>trigger_type</code></td><td>string</td><td>experience, proficiency, knowledge, ability, skills_backward, skill_backward, experience_backward, experience_years, or empty</td><td>proficiency</td></tr>
+<tr><td><code>trigger</code></td><td>string</td><td>Phrase that fired</td><td>proficient in</td></tr>
+<tr><td><code>section</code></td><td>string</td><td>requirements / responsibilities / other / skip</td><td>responsibilities</td></tr>
+<tr><td><code>confidence</code></td><td>string</td><td>high = trigger · medium = chunk in requirements · low = other chunk</td><td>high</td></tr>
+<tr><td><code>kind</code></td><td>string</td><td>Always "skill" (the data contract's kind flag)</td><td>skill</td></tr>
+<tr><td><code>raw_span</code></td><td>string</td><td>Text captured before splitting and cleaning</td><td>Adobe Creative Cloud (Indesign, Illustrator, Photoshop) and Microsoft Office Suite</td></tr>
+<tr><td><code>sentence</code></td><td>string</td><td>Evidence sentence, first 300 characters</td><td>Please, be proficient in Adobe Creative Cloud (…)</td></tr>
+</table></div>
+<h3>20 random rows, one per title</h3>
+<div class="tbl"><table>
+<tr><th>statement_id</th><th>Title</th><th>Statement</th><th>Method</th><th>Trigger</th><th>Section</th><th>Conf.</th></tr>
+<tr><td class="mono">3903813456_009</td><td>Information Technologist III</td><td>prioritize tasks effectively</td><td>trigger</td><td>ability to</td><td>requirements</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3894287514_008</td><td>Accounting Intern</td><td>Check cutting</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3894289235_032</td><td>Executive Assistant</td><td>back-up support</td><td>noun_chunk</td><td></td><td>other</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3906098480_020</td><td>Training Specialist</td><td>Education/Training</td><td>noun_chunk</td><td></td><td>requirements</td><td><span class="pill md">medium</span></td></tr>
+<tr><td class="mono">3906259058_024</td><td>Nursing Aide Certified</td><td>AHA and RQI cards</td><td>noun_chunk</td><td></td><td>requirements</td><td><span class="pill md">medium</span></td></tr>
+<tr><td class="mono">3889123067_014</td><td>Principal Statistician</td><td>Programming Department</td><td>noun_chunk</td><td></td><td>other</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3902829859_001</td><td>Warehouse Associate</td><td>operating material handling equipment</td><td>trigger</td><td>proficient in</td><td>responsibilities</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3902936505_010</td><td>Elementary School Teacher</td><td>student behavior</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3901985544_051</td><td>Assistant Store Manager</td><td>internal training</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3901482614_032</td><td>Food Service Team Member</td><td>workplace accidents</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3904387629_009</td><td>Retail Parts Pro</td><td>diagnostic</td><td>trigger</td><td>knowledge of</td><td>responsibilities</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3885105389_003</td><td>Maintenance Technician</td><td>plumbing</td><td>trigger</td><td>experience with</td><td>requirements</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3895494120_014</td><td>Senior System Administrator</td><td>ransomware attacks</td><td>noun_chunk</td><td></td><td>other</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3904987941_002</td><td>Nurse Assistant, Surgical Unit</td><td>Position Purpose</td><td>noun_chunk</td><td></td><td>other</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3903872684_009</td><td>Package Handler</td><td>add, subtract, multiply and divide</td><td>trigger</td><td>ability to</td><td>requirements</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3904951409_032</td><td>Transport Engineer</td><td>bandwidth upgrades</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3901484808_020</td><td>Coordinator, Events</td><td>digital livestream events</td><td>noun_chunk</td><td></td><td>responsibilities</td><td><span class="pill lo">low</span></td></tr>
+<tr><td class="mono">3895594497_031</td><td>Bilingual Clinician</td><td>reliable transportation</td><td>noun_chunk</td><td></td><td>requirements</td><td><span class="pill md">medium</span></td></tr>
+<tr><td class="mono">3885113359_006</td><td>UX Games designer Interns</td><td>design tools</td><td>trigger</td><td>proficiency in</td><td>responsibilities</td><td><span class="pill hi">high</span></td></tr>
+<tr><td class="mono">3906233161_004</td><td>Manufacturing Associate I/II</td><td>follow written instructions</td><td>trigger</td><td>ability to</td><td>requirements</td><td><span class="pill hi">high</span></td></tr>
+</table></div>
+<p class="muted">The sample shows the quality gap plainly: high-confidence trigger rows are mostly real skills, while many low-confidence chunks ("Position Purpose", "Programming Department") are not.</p>
+</section>
+
+<section id="p13">
+<h2><span class="n">13</span>One row, traced end to end</h2>
+<p>Row <code>921716_006</code>: statement <strong>Photoshop</strong>, method trigger, trigger "proficient in", section responsibilities, confidence high.</p>
+<ol>
+<li><strong>Original posting text:</strong> "…cool-under-pressure. Please, be proficient in Adobe Creative Cloud (Indesign, Illustrator, Photoshop) and Microsoft Office Suite. Above all…"</li>
+<li><strong>Normalization:</strong> this sentence is unchanged; other parts of the posting were repaired ("inclusion.Who you are:You" → "inclusion. Who you are: You").</li>
+<li><strong>Matcher:</strong> "proficient in" matches (noun trigger, proficiency group). The sentence is not boilerplate.</li>
+<li><strong><code>_capture_forward</code>:</strong> collects tokens until "." → <code>raw_span</code> "Adobe Creative Cloud (Indesign, Illustrator, Photoshop) and Microsoft Office Suite".</li>
+<li><strong><code>_split_list</code>:</strong> splits at <code>(</code>, <code>,</code>, <code>)</code>, and at "and" because the span has commas → five items.</li>
+<li><strong><code>_clean_tokens</code>:</strong> "Photoshop" has nothing to strip, is 1 word (noun limit 1–8) and is not generic → kept.</li>
+<li><strong><code>_row</code>:</strong> <code>statement_norm</code> "photoshop", sentence stored.</li>
+<li><strong>Labels:</strong> section "responsibilities", set by the earlier "Job description" heading; "Who you are:" sits mid-line, so it is not detected as a heading. This mislabel is a known weakness. Confidence high because the method is trigger.</li>
+<li><strong><code>_dedupe</code>:</strong> first "photoshop" in this posting → kept.</li>
+<li><strong><code>run</code>:</strong> merged back to job 921716 and numbered 6th, because the two years-regex rows (Marketing, Graphic design) are created first; <code>kind</code> = "skill".</li>
+</ol>
+<div class="callout">Data quirk: this posting's <code>skills_desc</code> describes a different job ("College or Graduate Student… Real Estate…"). Row 008, "work in an extremely fast paced environment", comes from that appended text.</div>
+</section>
+
+<section id="p14">
+<h2><span class="n">14</span>Results</h2>
+<div class="figs">
+  <div class="fig"><div class="v">99.50%</div><div class="k">postings with ≥ 1 skill (123,223 of 123,842)</div></div>
+  <div class="fig"><div class="v">30.19</div><div class="k">mean skills per posting (median 27)</div></div>
+  <div class="fig"><div class="v">28.7%</div><div class="k">rows from rules</div></div>
+  <div class="fig"><div class="v">3.63%</div><div class="k">distinct skills found by both methods</div></div>
+</div>
+<div class="tbl"><table>
+<tr><th>Metric</th><th class="num">Value</th></tr>
+<tr><td>Original postings</td><td class="num">123,849</td></tr>
+<tr><td>Postings processed (have text)</td><td class="num">123,842</td></tr>
+<tr><td>Postings in the output</td><td class="num">123,223</td></tr>
+<tr><td>Postings with zero skills</td><td class="num">619 (0.50%)</td></tr>
+<tr><td>Skill rows</td><td class="num">3,738,856</td></tr>
+<tr><td>Unique normalized skills</td><td class="num">979,905</td></tr>
+<tr><td>Skills per posting: mean / median / min / max</td><td class="num">30.19 / 27 / 0 / 239</td></tr>
+<tr><td>Rule rows</td><td class="num">1,073,949 (28.72%)</td></tr>
+<tr><td>Noun-chunk rows</td><td class="num">2,664,907 (71.28%)</td></tr>
+<tr><td>Same-posting overlap rows</td><td class="num">0 (removed by design)</td></tr>
+<tr><td>Distinct skills found by both methods</td><td class="num">35,545 of 979,905 (3.63%)</td></tr>
+<tr><td>Confidence high / medium / low</td><td class="num">1,073,949 / 683,416 / 1,981,491</td></tr>
+<tr><td>Section: responsibilities / requirements / other / skip</td><td class="num">1,497,305 / 1,403,180 / 788,851 / 49,520</td></tr>
+<tr><td>Statement length (words, mean / median)</td><td class="num">2.57 / 2</td></tr>
+<tr><td>Statement length (characters, mean / median / max)</td><td class="num">20.6 / 18 / 100</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Trigger type</th><th class="num">Rows</th><th>Top individual triggers</th><th class="num">Rows</th></tr>
+<tr><td>experience</td><td class="num">274,546</td><td>… skills</td><td class="num">158,209</td></tr>
+<tr><td>knowledge</td><td class="num">217,254</td><td>ability to</td><td class="num">156,119</td></tr>
+<tr><td>ability</td><td class="num">207,324</td><td>experience in</td><td class="num">132,423</td></tr>
+<tr><td>skills_backward</td><td class="num">158,209</td><td>knowledge of</td><td class="num">122,255</td></tr>
+<tr><td>proficiency</td><td class="num">110,168</td><td>… experience</td><td class="num">101,584</td></tr>
+<tr><td>experience_backward</td><td class="num">101,584</td><td>experience with</td><td class="num">94,365</td></tr>
+<tr><td>experience_years</td><td class="num">2,812</td><td>understanding of</td><td class="num">59,029</td></tr>
+<tr><td>skill_backward</td><td class="num">2,052</td><td>able to</td><td class="num">46,135</td></tr>
+</table></div>
+</section>
+
+<section id="p15">
+<h2><span class="n">15</span>Top skills</h2>
+<p>Because of within-posting dedupe, total occurrences equal the number of postings for every skill.</p>
+<div class="tbl"><table>
+<tr><th class="num">#</th><th>Skill</th><th class="num">Postings</th><th class="num">#</th><th>Skill</th><th class="num">Postings</th></tr>
+<tr><td class="num">1</td><td>customer service</td><td class="num">13,545</td><td class="num">16</td><td>customer experience</td><td class="num">3,635</td></tr>
+<tr><td class="num">2</td><td>communication skills</td><td class="num">13,389</td><td class="num">17</td><td>microsoft office suite</td><td class="num">3,604</td></tr>
+<tr><td class="num">3</td><td>excel</td><td class="num">9,739</td><td class="num">18</td><td>communication and interpersonal skills</td><td class="num">3,542</td></tr>
+<tr><td class="num">4</td><td>interpersonal skills</td><td class="num">6,793</td><td class="num">19</td><td>python</td><td class="num">3,414</td></tr>
+<tr><td class="num">5</td><td>word</td><td class="num">6,601</td><td class="num">20</td><td>sales</td><td class="num">3,169</td></tr>
+<tr><td class="num">6</td><td>organizational skills</td><td class="num">6,397</td><td class="num">21</td><td>problem-solving skills</td><td class="num">3,164</td></tr>
+<tr><td class="num">7</td><td>computer science</td><td class="num">5,641</td><td class="num">22</td><td>customer satisfaction</td><td class="num">3,147</td></tr>
+<tr><td class="num">8</td><td>verbal and written communication skills</td><td class="num">5,203</td><td class="num">23</td><td>microsoft office</td><td class="num">3,108</td></tr>
+<tr><td class="num">9</td><td>powerpoint</td><td class="num">4,642</td><td class="num">24</td><td>written and verbal communication skills</td><td class="num">2,968</td></tr>
+<tr><td class="num">10</td><td>project management</td><td class="num">4,562</td><td class="num">25</td><td>sql</td><td class="num">2,723</td></tr>
+<tr><td class="num">11</td><td>patient care</td><td class="num">4,291</td><td class="num">26</td><td>business administration</td><td class="num">2,665</td></tr>
+<tr><td class="num">12</td><td>computer skills</td><td class="num">4,210</td><td class="num">27</td><td>english</td><td class="num">2,580</td></tr>
+<tr><td class="num">13</td><td>analytical skills</td><td class="num">3,941</td><td class="num">28</td><td>industry trends</td><td class="num">2,579</td></tr>
+<tr><td class="num">14</td><td>outlook</td><td class="num">3,910</td><td class="num">29</td><td>leadership skills</td><td class="num">2,428</td></tr>
+<tr><td class="num">15</td><td>continuous improvement</td><td class="num">3,902</td><td class="num">30</td><td>customer service skills</td><td class="num">2,394</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Top from rules</th><th class="num">Postings</th><th>Top from noun chunks</th><th class="num">Postings</th></tr>
+<tr><td>communication skills</td><td class="num">13,385</td><td>customer service</td><td class="num">11,036</td></tr>
+<tr><td>excel</td><td class="num">7,318</td><td>computer science</td><td class="num">5,448</td></tr>
+<tr><td>interpersonal skills</td><td class="num">6,791</td><td>patient care</td><td class="num">4,085</td></tr>
+<tr><td>organizational skills</td><td class="num">6,396</td><td>continuous improvement</td><td class="num">3,793</td></tr>
+<tr><td>verbal and written communication skills</td><td class="num">5,202</td><td>customer satisfaction</td><td class="num">3,136</td></tr>
+<tr><td>word</td><td class="num">4,698</td><td>business administration</td><td class="num">2,588</td></tr>
+<tr><td>computer skills</td><td class="num">4,205</td><td>project management</td><td class="num">2,440</td></tr>
+<tr><td>analytical skills</td><td class="num">3,941</td><td>excel</td><td class="num">2,421</td></tr>
+<tr><td>customer experience</td><td class="num">3,635</td><td>valid driver’s license</td><td class="num">2,350</td></tr>
+<tr><td>communication and interpersonal skills</td><td class="num">3,542</td><td>industry trends</td><td class="num">2,250</td></tr>
+</table></div>
+<p><strong>Suspicious entries:</strong> "industry trends", "customer satisfaction", "business objectives" and "application process" are topics or boilerplate; "computer science" and "business administration" are degree fields; "word" is ambiguous (usually Microsoft Word); "communication skills" appears as several near-duplicates; "sales floor" is a place.</p>
+</section>
+
+<section id="p16">
+<h2><span class="n">16</span>Skills per posting</h2>
+<div class="bars" role="img" aria-label="Postings by number of extracted skills">
+  <span>0</span><div class="bar" style="width:1.0%"></div><span class="val">619</span>
+  <span>1–5</span><div class="bar" style="width:8.7%"></div><span class="val">5,396</span>
+  <span>6–10</span><div class="bar" style="width:16.9%"></div><span class="val">10,492</span>
+  <span>11–20</span><div class="bar" style="width:45.4%"></div><span class="val">28,107</span>
+  <span>21–50</span><div class="bar" style="width:100%"></div><span class="val">61,929</span>
+  <span>50+</span><div class="bar" style="width:27.9%"></div><span class="val">17,299</span>
+</div>
+<p>Percentiles: p90 56 · p95 66 · p99 89 · p99.9 122. Skill count tracks description length (correlation 0.748).</p>
+<div class="tbl"><table>
+<tr><th>Outlier</th><th class="num">Rows</th><th class="num">Characters</th><th>Mix</th></tr>
+<tr><td>3905366870 Family Medicine Physician</td><td class="num">239</td><td class="num">20,752</td><td>225 chunks, 14 triggers</td></tr>
+<tr><td>3904942701 Logistics Management Specialist</td><td class="num">207</td><td class="num">22,709</td><td>202 chunks, 5 triggers</td></tr>
+<tr><td>3906244923 Schoolwide Positive Behavior Support</td><td class="num">197</td><td class="num">18,253</td><td>185 chunks, 12 triggers</td></tr>
+</table></div>
+<p>The 239-row posting is mostly noise ("Examples", "gases", "Job Code", "Final Approval", "health care needs.(5"). Very long postings are where precision is worst. The 619 zero-row postings are short (median 585 characters) or mostly pay and benefits text, for example "Pickup &amp; Delivery" as the whole description, or a first line "Compensation: Up to $15/HR…" that starts a skip section.</p>
+</section>
+
+<section id="p17">
+<h2><span class="n">17</span>Five real postings</h2>
+<p class="muted">Each was traced through every stage with logging; candidates marked with a strike-through were removed.</p>
+
+<details open><summary>SAP EWM Solution Architect · Sika · 3906092894 · technical role, methods complementing each other</summary>
+<p class="mono" style="font-size:13px">"10+ years of SAP experience with 5+ years of functional consulting / solution architect experience in SAP EWM… Experience in SAP EWM requirements gathering, preparation of functional specification documents, integration testing… Basic knowledge of ABAP / ABAP OO (reading/debugging)… Fluent in English."</p>
+<div class="outs"><span class="lbl">Rules</span><span class="chip t">functional consulting / solution architect</span><span class="chip t">SAP EWM</span><span class="chip t">SAP EWM requirements gathering</span><span class="chip t">integration testing</span><span class="chip t">ABAP / ABAP OO</span><span class="chip t">reading/debugging</span><span class="chip t">English</span><span class="chip t">SAP</span><span class="chip t">problem solving skills</span></div>
+<div class="outs"><span class="lbl">Noun chunks</span><span class="chip c">user acceptance testing</span><span class="chip c">UAT</span><span class="chip c">data migration activities</span><span class="chip c">wave planning</span><span class="chip c">cycle counts</span><span class="chip c">goods receipt</span><span class="chip c">label printing</span><span class="chip c">QM</span><span class="chip c">TM</span><span class="chip c">GTS</span></div>
+<div class="outs"><span class="lbl">Removed</span><span class="chip x">dedicated</span><span class="chip x">Our Global SAP team</span><span class="chip x">S/4HANA</span><span class="muted" style="font-size:13px">+125 chunks in the "Company Description" skip section</span></div>
+<p>Final: 38 rows. "S/4HANA" was wrongly dropped (acronym rule allows at most 6 characters). Noise left: "results skills", "fundamental elements", "digital journey".</p>
+</details>
+
+<details><summary>Registered Nurse Manager · 3887842016 · healthcare</summary>
+<div class="outs"><span class="lbl">Rules</span><span class="chip t">care</span><span class="chip t">clinical practice</span><span class="chip t">treatments</span><span class="chip t">interventions</span><span class="chip t">understand and monitor applicable regulations, policies, and procedures</span><span class="chip t">English language</span><span class="chip t">computer skills</span></div>
+<div class="outs"><span class="lbl">Noun chunks</span><span class="chip c">CPR/BLS certification</span><span class="chip c">RN license</span><span class="chip c">Chemo Certification</span><span class="chip c">Picc Certification</span><span class="chip c">patient care</span><span class="chip c">nurse practitioners</span></div>
+<div class="outs"><span class="lbl">Removed</span><span class="chip x">the industry</span><span class="chip x">specific to position</span><span class="chip x">16-word verb phrase</span><span class="chip x">REGISTERED NURSE MANAGER</span><span class="chip x">Medical / Dental / Vision</span></div>
+<p>Final: 35 rows. Noise left: "Shift Length", "Hourly Comp", "right skills", "Staff's services".</p>
+</details>
+
+<details><summary>General Construction Superintendent · 3901629370 · trades, the single-word trade-off</summary>
+<div class="outs"><span class="lbl">Rules</span><span class="chip t">construction methods</span><span class="chip t">materials</span><span class="chip t">industry best practices</span><span class="chip t">construction management software</span><span class="chip t">leadership and team-building skills</span><span class="chip t">negotiation skills</span><span class="chip t">conflict resolution skills</span></div>
+<div class="outs"><span class="lbl">Noun chunks</span><span class="chip c">Quality Assurance</span><span class="chip c">quality control</span><span class="chip c">safety standards</span><span class="chip c">Construction Management</span><span class="chip c">Strategic Planning</span><span class="chip c">regular site inspections</span></div>
+<div class="outs"><span class="lbl">Removed</span><span class="chip x">tools</span><span class="chip x">the project teams</span><span class="chip x">Monitor project progress</span><span class="chip x">budgeting</span><span class="chip x">scheduling</span><span class="chip x">leadership</span><span class="chip x">compliance</span></div>
+<p>Final: 34 rows. Budgeting, scheduling, leadership and compliance are real skills lost to the single-word rule; "communication skills" was lost to the backward 6-token cap.</p>
+</details>
+
+<details><summary>AI Solution Architect · Deloitte · 3884830087 · AI and data</summary>
+<div class="outs"><span class="lbl">Rules</span><span class="chip t">Data Science</span><span class="chip t">Statistics</span><span class="chip t">Machine Learning</span><span class="chip t">Generative AI</span><span class="chip t">Large Language Models</span><span class="chip t">natural language processing</span><span class="chip t">data analysis</span><span class="chip t">machine learning model development</span></div>
+<div class="outs"><span class="lbl">Noun chunks</span><span class="chip c">CI/CD pipelines</span><span class="chip c">feature engineering</span><span class="chip c">data ingestion</span><span class="chip c">DevOps</span><span class="chip c">AWS</span><span class="chip c">Azure</span><span class="chip c">Unsupervised learning</span></div>
+<div class="outs"><span class="lbl">Removed</span><span class="chip x">travel 0–25%… you serve</span><span class="chip x">Machine Learning (chunk, NER)</span><span class="chip x">Generative AI (chunk, NER)</span></div>
+<p>Final: 103 rows. Errors left: "Machine Learning5", "delivery5+ years of full system development", "making it a strategically crucial position".</p>
+</details>
+
+<details><summary>Marketing Project Coordinator · 3887499030 · business role, verb phrases and the "and" rule</summary>
+<div class="outs"><span class="lbl">Rules</span><span class="chip t">manage multiple products simultaneously and prioritize workload</span><span class="chip t">Marketing</span><span class="chip t">Communications</span><span class="chip t">MS Office</span><span class="chip t">managing projects</span><span class="chip t">events</span><span class="chip t">trade shows</span><span class="chip t">written and verbal communication skills</span></div>
+<div class="outs"><span class="lbl">Noun chunks</span><span class="chip c">content curation</span><span class="chip c">marketing strategy</span><span class="chip c">KPIs</span><span class="chip c">corporate trade show strategy</span></div>
+<div class="outs"><span class="lbl">Removed</span><span class="chip x">Business</span><span class="chip x">the Marketing team</span><span class="chip x">Set priorities</span><span class="muted" style="font-size:13px">+53 single-word chunks</span></div>
+<p>Final: 37 rows. Noise left: "file cabinets", "copy machine", "Site Position*POSITION OBJECTIVE", and the physical requirement "remain in a stationary position 75% of the time".</p>
+</details>
+</section>
+
+<section id="p18">
+<h2><span class="n">18</span>Good results</h2>
+<div class="tbl"><table>
+<tr><th>Skill</th><th>Job (ID)</th><th>Source text</th><th>Why it is good</th></tr>
+<tr><td>Photoshop</td><td>Marketing Coordinator (921716)</td><td>"proficient in Adobe Creative Cloud (Indesign, Illustrator, Photoshop)"</td><td>Named tool split out of a parenthetical list</td></tr>
+<tr><td>Graphic design</td><td>same</td><td>"Graphic design: 2 years (Preferred)"</td><td>Structured requirement lines become skills</td></tr>
+<tr><td>SAP EWM</td><td>SAP Architect (3906092894)</td><td>"experience in SAP EWM"</td><td>Precise system skill</td></tr>
+<tr><td>integration testing</td><td>same</td><td>"Experience in … integration testing"</td><td>One item from a three-item list</td></tr>
+<tr><td>ABAP / ABAP OO</td><td>same</td><td>"Basic knowledge of ABAP / ABAP OO"</td><td>"Basic" stripped, skill kept</td></tr>
+<tr><td>user acceptance testing</td><td>same</td><td>Requirements bullet with no trigger</td><td>Recall from noun chunks</td></tr>
+<tr><td>CPR/BLS certification</td><td>RN Manager (3887842016)</td><td>Requirements line</td><td>Certification with no trigger</td></tr>
+<tr><td>construction management software</td><td>Superintendent (3901629370)</td><td>"Proficiency in construction management software and tools"</td><td>"tools" dropped as generic</td></tr>
+<tr><td>conflict resolution skills</td><td>same</td><td>"communication, negotiation, and conflict resolution skills"</td><td>Backward rule plus comma split</td></tr>
+<tr><td>natural language processing</td><td>AI Architect (3884830087)</td><td>"experience in machine learning model development, natural language processing, and data analysis"</td><td>Multi-word skill kept intact</td></tr>
+<tr><td>Power BI · Tableau</td><td>2147609785</td><td>"BI tools, such as Power BI and Tableau"</td><td>"such as" treated as a list separator</td></tr>
+</table></div>
+</section>
+
+<section id="p19">
+<h2><span class="n">19</span>False positives</h2>
+<div class="tbl"><table>
+<tr><th>Extracted</th><th>Job (ID)</th><th>Context</th><th>Method</th><th>Why it is wrong</th></tr>
+<tr><td>industry trends <span class="muted">(2,579)</span></td><td>Inside Customer Service Associate (9615617)</td><td>"Stay updated on product knowledge and industry trends"</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Topic, not a skill</td></tr>
+<tr><td>application process <span class="muted">(1,637)</span></td><td>Fundraising Associate (2934066464)</td><td>"Application Process: Please send a resume…"</td><td><span class="pill c">chunk</span> <span class="pill md">medium</span></td><td>How-to-apply heading slipped through</td></tr>
+<tr><td>accredited school <span class="muted">(1,785)</span></td><td>Respiratory Therapist (1218575)</td><td>"Graduate of an accredited school…"</td><td><span class="pill c">chunk</span> <span class="pill md">medium</span></td><td>Education requirement</td></tr>
+<tr><td>business objectives <span class="muted">(1,685)</span></td><td>Marketing &amp; Office Coordinator (266566927)</td><td>"ensuring alignment with business objectives"</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Generic business phrase</td></tr>
+<tr><td>primary point <span class="muted">(889)</span></td><td>Executive Personal Assistant (3656167404)</td><td>"Be the primary point of contact…"</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Idiom fragment</td></tr>
+<tr><td>bold representation <span class="muted">(248)</span></td><td>Retail Sales Associate (3887495742)</td><td>"…a brighter future with bold representation for all"</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Company slogan</td></tr>
+<tr><td>Hourly Comp <span class="muted">(24)</span> · Shift Length <span class="muted">(203)</span></td><td>RN postings (3887835982, 3887834968)</td><td>"Hourly Comp: $51." · "Shift Length 12."</td><td><span class="pill c">chunk</span> <span class="pill md">medium</span></td><td>Pay and schedule fields</td></tr>
+<tr><td>right skills <span class="muted">(78)</span></td><td>EV/Cash Flow Analyst (3875066415)</td><td>"the successful candidate with the right skills and experience"</td><td><span class="pill t">trigger</span> <span class="pill hi">high</span></td><td>Generic despite the "skills" head</td></tr>
+<tr><td>remain in a stationary position 75% of the time</td><td>Marketing Project Coordinator (3887499030)</td><td>"Must be able to remain…"</td><td><span class="pill t">trigger</span> <span class="pill hi">high</span></td><td>Physical requirement</td></tr>
+<tr><td>making it a strategically crucial position</td><td>AI Solution Architect (3884830087)</td><td>"ability to bridge the gap…, making it…"</td><td><span class="pill t">trigger</span> <span class="pill hi">high</span></td><td>Verb split picked up a clause</td></tr>
+<tr><td>Machine Learning5</td><td>AI Solution Architect (3884830087)</td><td>"…Machine Learning5+ years of…"</td><td><span class="pill t">trigger</span> <span class="pill hi">high</span></td><td>Digit glued to the word</td></tr>
+<tr><td>learning <span class="muted">(311; 84 from "deep learning")</span></td><td>e.g. 3884822884</td><td>"…machine learning, and/or deep learning"</td><td><span class="pill t">trigger</span></td><td>"deep" stripped as filler</td></tr>
+<tr><td>life support <span class="muted">(946; 930 from "Basic Life Support")</span></td><td>Respiratory Therapist (1218575)</td><td>"certified in Basic Life Support"</td><td><span class="pill t">trigger</span> <span class="pill hi">high</span></td><td>"basic" stripped as filler</td></tr>
+<tr><td>Job Code <span class="muted">(118)</span> · Final Approval <span class="muted">(66)</span></td><td>Workforce Program Specialist · VP Engineering</td><td>"Job Code: WFPGSPEC."</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Form fields and task words</td></tr>
+<tr><td>WA/Remote</td><td>.Net Developer (3904408466)</td><td>"Location: Redmond, WA/Remote"</td><td><span class="pill c">chunk</span> <span class="pill lo">low</span></td><td>Location not caught by NER</td></tr>
+</table></div>
+</section>
+
+<section id="p20">
+<h2><span class="n">20</span>False negatives</h2>
+<p>A coverage check, not recall: for each tool named in a description, does any statement from that posting contain it?</p>
+<div class="tbl"><table>
+<tr><th>Tool</th><th class="num">Postings mentioning</th><th class="num">Covered</th><th>Tool</th><th class="num">Postings mentioning</th><th class="num">Covered</th></tr>
+<tr><td>QuickBooks</td><td class="num">372</td><td class="num">93.8%</td><td>Salesforce</td><td class="num">2,666</td><td class="num">76.5%</td></tr>
+<tr><td>Power BI</td><td class="num">1,042</td><td class="num">90.7%</td><td>Epic</td><td class="num">440</td><td class="num">68.2%</td></tr>
+<tr><td>SQL</td><td class="num">5,150</td><td class="num">89.1%</td><td>Jira</td><td class="num">890</td><td class="num">65.3%</td></tr>
+<tr><td>Excel</td><td class="num">15,490</td><td class="num">86.5%</td><td>Tableau</td><td class="num">1,237</td><td class="num">65.2%</td></tr>
+<tr><td>AWS</td><td class="num">3,164</td><td class="num">85.5%</td><td>Java</td><td class="num">2,562</td><td class="num">65.0%</td></tr>
+<tr><td>Python</td><td class="num">4,519</td><td class="num">85.1%</td><td>CPR</td><td class="num">3,947</td><td class="num">61.9%</td></tr>
+<tr><td>SAP</td><td class="num">2,903</td><td class="num">84.2%</td><td>Spanish</td><td class="num">4,000</td><td class="num">30.8%</td></tr>
+<tr><td>AutoCAD</td><td class="num">1,248</td><td class="num">77.3%</td><td></td><td></td><td></td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Original text</th><th>Missed</th><th>Cause</th><th>Category</th></tr>
+<tr><td>"Experience with at least one scripting language (Bash, Go, Python)" (3904429414)</td><td>Bash, Go, Python</td><td>"at" is a noun stop word, so the capture is empty; spaCy made no chunk</td><td>Trigger capture rule</td></tr>
+<tr><td>"Basic Understanding of one or more of the following: Java, Swift, Objective-C…" (3894628578)</td><td>Java, Swift…</td><td>Capture stops at ":"; the list after the colon is never read</td><td>Trigger capture rule</td></tr>
+<tr><td>"Proficiency understanding the following programming languages: C, C++, C#, Python and/or Java" (3901989380)</td><td>Java and others</td><td>"Proficiency" not followed by "in"; NER tags Java as PERSON</td><td>Missing trigger + NER filter</td></tr>
+<tr><td>"Intermediate Computer Skill (i.e. Word, Excel, etc)" (3906248907)</td><td>Word, Excel</td><td>The backward rule only looks left; spaCy made no chunk</td><td>Missing pattern</td></tr>
+<tr><td>"Microsoft Office (Word, Excel, PowerPoint and Outlook)" (3895271788)</td><td>Excel</td><td>No trigger; no chunk inside the parentheses</td><td>Missing pattern / spaCy</td></tr>
+<tr><td>"…using Java, AWS" (3905256250)</td><td>Java</td><td>NER labels Java as PERSON</td><td>Noun-chunk filtering</td></tr>
+<tr><td>"CPR certified yearly." (3888027135)</td><td>CPR</td><td>Single-word chunk at the start of a sentence is rejected</td><td>Noun-chunk filtering</td></tr>
+<tr><td>"Murex/Python is a plus." (3905309255)</td><td>Python</td><td>"Murex/Python" has no space and starts the sentence</td><td>Noun-chunk filtering</td></tr>
+<tr><td>"Second language in Spanish, Mandarin, Korean, or Vietnamese." (3885109761)</td><td>Spanish and others</td><td>7 of 8 words are capitalized or stop words, so the line counts as a heading and single words are dropped</td><td>Noun-chunk filtering</td></tr>
+<tr><td>"team.18+ years of age … CPR, First Aid Certification" (3905393714)</td><td>CPR</td><td>The glued sentence was flagged as boilerplate</td><td>Preprocessing / boilerplate</td></tr>
+<tr><td>"Outstanding communication, negotiation, and conflict resolution skills" (3901629370)</td><td>communication skills</td><td><code>MAX_BACKWARD_TOKENS = 6</code></td><td>Trigger capture cap</td></tr>
+<tr><td>Superintendent posting: budgeting, scheduling, leadership, compliance</td><td>All four</td><td>Single common-noun chunks are always rejected</td><td>Noun-chunk filtering</td></tr>
+<tr><td>"S/4HANA" (3906092894)</td><td>S/4HANA</td><td>Acronym rule allows at most 6 characters</td><td>Noun-chunk filtering</td></tr>
+</table></div>
+</section>
+
+<section id="p21">
+<h2><span class="n">21</span>Quality assessment</h2>
+<div class="tbl"><table>
+<tr><th>Component</th><th>Verdict</th><th>Detail</th></tr>
+<tr><td>Rule extractor</td><td><span class="pill hi">good, with holes</span></td><td>Lists, parentheticals, "such as" and years lines work well, and high-confidence rows are mostly real skills. "ability to" phrases include physical requirements and odd clauses; backward "skills" sometimes yields generic rows ("right skills"). Holes: lists after ":" or "at least", the 6-token backward cap, "Proficiency" without "in".</td></tr>
+<tr><td>NLP extractor</td><td><span class="pill md">useful but noisy</span></td><td>Finds skills with no cue (UAT, wave planning, CI/CD pipelines) and covers 9,294 no-trigger postings. Many low rows are topics, tasks or form fields. NER mislabels skills (Java as PERSON, Spanish as NORP).</td></tr>
+<tr><td>Cleaning</td><td><span class="pill md">works, with systematic bugs</span></td><td>Removes pronouns, generic heads, boilerplate and long phrases well. Bugs: filler words damage real names (deep learning, Basic Life Support, KPIs, general ledger); the single-word rule is too strict; glued digits survive; apostrophes are not unified.</td></tr>
+<tr><td>Atomic splitting</td><td><span class="pill hi">good for comma lists</span></td><td>Multi-word names stay whole. Weak for "X and Y skills" and slash lists like "Tableau/Power BI".</td></tr>
+<tr><td>Combined output</td><td><span class="pill md">usable with filtering</span></td><td>99.5% posting coverage and a strong high tier (1.07M rows). The medium and low tiers need filtering before clustering. These are judgements from inspection, not measured precision.</td></tr>
+</table></div>
+</section>
+
+<section id="p22">
+<h2><span class="n">22</span>Manual validation</h2>
+<div class="callout bad"><strong>NOT COMPLETED YET.</strong> No posting has been hand-labelled, and there is no labelling code. There are no precision, recall or F1 numbers. The tool coverage figures in section 20 are a heuristic check only.</div>
+<p>What the roughly 100-posting evaluation still needs:</p>
+<ol>
+<li>Pick 100 postings, stratified like the sample but kept separate from the 400 used for tuning.</li>
+<li>Write short labelling rules: what counts as a skill, whether education and licences count, and how partial matches are scored.</li>
+<li>Two people label the skills in every posting independently, with some postings labelled by both to measure agreement.</li>
+<li>Compute precision (extracted rows judged correct) and recall (gold skills found), overall and by <code>method</code> and <code>confidence</code>.</li>
+</ol>
+</section>
+
+<section id="p23">
+<h2><span class="n">23</span>Performance</h2>
+<div class="tbl"><table>
+<tr><th>Measure</th><th>Value</th><th>Source</th></tr>
+<tr><td>Full-corpus runtime</td><td><strong>21.01 min</strong> total; extraction finished at 20.9 min</td><td>Stats JSON, log</td></tr>
+<tr><td>Workers</td><td>10 processes</td><td>Log</td></tr>
+<tr><td>Throughput</td><td>108,467 texts in 20.9 min ≈ 86.5 texts/s; 123,842 postings in 21.01 min ≈ 98 postings/s</td><td>Derived</td></tr>
+<tr><td>Combine parts, write Parquet, stats</td><td>≈ 0.1 min (gap between the two log timestamps)</td><td>Derived, not timed separately</td></tr>
+<tr><td>Sample run, 400 postings</td><td>0.12 min including model loading</td><td>Sample stats</td></tr>
+<tr><td>Single process, instrumented, 400 postings</td><td>35.9 s (≈ 90 ms per posting)</td><td>Measured</td></tr>
+<tr><td>Peak memory during the run</td><td>Not measured</td><td>—</td></tr>
+<tr><td>Parquet loaded in pandas</td><td>1,587 MB</td><td>Measured</td></tr>
+<tr><td>Bottleneck</td><td>Not profiled. Most likely the spaCy parse (tagger, parser, NER), since the rule logic is a single cheap pass over tokens.</td><td>Inference</td></tr>
+</table></div>
+</section>
+
+</main>
+</div>
+
+</body></html>
