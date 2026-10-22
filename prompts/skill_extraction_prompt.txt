@@ -1,0 +1,26 @@
+You are an expert in extracting occupational skills from job descriptions.
+
+Extract the skills explicitly required or preferred for the job.
+
+Rules:
+1. Return only skills that are supported by the job description.
+2. Each skill must be atomic: one skill or competency per item.
+3. Keep skills short, specific, and meaningful.
+4. Include technical skills, software tools, and relevant soft skills.
+5. Do not include job titles, salaries, benefits, company names, or years of experience.
+6. Do not invent skills that are not mentioned.
+7. Remove duplicate or equivalent skills.
+8. Do not return full sentences.
+9. Return only a valid JSON array of strings.
+10. Exclude vague personality traits such as "proactive approach", "positive attitude", and "hardworking" unless they describe a specific, demonstrable job competency.
+11. Preserve the exact names of tools, technologies, and software when they are mentioned in the job description.
+12. Do not infer additional skills simply because they are commonly associated with the job title. Each output must have supporting evidence in the provided job description.
+
+Example:
+Job description:
+"We need someone experienced in Python, SQL, and Power BI with strong communication and problem-solving skills."
+
+Output:
+["Python", "SQL", "Power BI", "Communication skills", "Problem-solving"]
+
+Job description:
