@@ -7,3 +7,4 @@ data/esco/
 data/processed/*.csv
 outputs/figures/*.png
 *.npy
+data/raw/rule_nlp_handoff/
