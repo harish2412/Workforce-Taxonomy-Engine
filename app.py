@@ -3,6 +3,10 @@ import pandas as pd
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 
+# must match src/embed.py's MODEL_NAME, since this loads data/processed/embeddings.npy
+# which was generated with that model and shares its vector dimensions
+MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
+
 st.set_page_config(page_title="Skill Taxonomy Demo", layout="centered")
 
 
@@ -11,7 +15,7 @@ def load_everything():
     embeddings = np.load("data/processed/embeddings.npy")
     labels = np.load("data/processed/cluster_labels.npy")
     statements = pd.read_csv("data/processed/unique_statements.csv")["statement"]
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    model = SentenceTransformer(MODEL_NAME)
 
     df = pd.DataFrame({"statement": statements, "cluster": labels})
     centers = {cid: embeddings[labels == cid].mean(axis=0) for cid in sorted(set(labels))}

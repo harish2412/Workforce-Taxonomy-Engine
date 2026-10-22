@@ -7,3 +7,5 @@ matplotlib
 spacy
 python-dotenv
 requests
+openpyxl
+streamlit
