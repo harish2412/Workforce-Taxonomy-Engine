@@ -6,7 +6,7 @@ from sklearn.metrics import silhouette_score
 
 INPUT_PATH = Path("data/processed/embeddings.npy")
 OUTPUT_PATH = Path("data/processed/cluster_labels.npy")
-K_VALUES_TO_TRY = [30]
+K_VALUES_TO_TRY = [20, 30, 50, 80]
 
 
 def main():
