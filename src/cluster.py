@@ -1,3 +1,4 @@
+import gc
 from pathlib import Path
 
 import numpy as np
@@ -23,6 +24,9 @@ def main():
 
         if score > best_score:
             best_k, best_score, best_labels = k, score, labels
+
+        del km
+        gc.collect()
 
     print(f"\nBest: k={best_k} (silhouette={best_score:.4f})")
     np.save(OUTPUT_PATH, best_labels)
