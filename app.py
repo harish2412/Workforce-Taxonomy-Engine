@@ -5,6 +5,7 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
+LABELS_PATH = "data/processed/cluster_labels_k30.npy"  # swap to _k80.npy to demo that version instead
 
 st.set_page_config(page_title="Skill Taxonomy Engine", layout="wide")
 
@@ -61,12 +62,13 @@ div[data-testid="stVerticalBlockBorderWrapper"] { background-color: var(--paper-
 @st.cache_resource
 def load_everything():
     embeddings = np.load("data/processed/embeddings.npy")
-    labels = np.load("data/processed/cluster_labels.npy")
-    statements = pd.read_csv("data/processed/unique_statements.csv")["statement"]
+    labels = np.load(LABELS_PATH)
+    statements = pd.read_csv("data/processed/unique_statements_cleaned.csv")["statement"]
 
-    # real model, needs GPU — commented out for frontend-only testing
-    # model = SentenceTransformer(MODEL_NAME)
-    model = None
+    model = SentenceTransformer(MODEL_NAME)
+    # TEMPORARY, frontend-only testing without GPU — uncomment this and comment the
+    # line above if you need to test layout again without loading the real model
+    # model = None
 
     df = pd.DataFrame({"statement": statements, "cluster": labels})
     centers = {cid: embeddings[labels == cid].mean(axis=0) for cid in sorted(set(labels))}
@@ -75,7 +77,7 @@ def load_everything():
     return model, df, centers, sizes
 
 
-# TEMPORARY — frontend testing only, no GPU needed. Remove before the real demo.
+# Frontend-only testing stub, no GPU needed. Not used while the real model above is active.
 def fake_encode(text):
     rng = np.random.default_rng(abs(hash(text)) % (2**32))
     vec = rng.random(4096)
@@ -83,9 +85,9 @@ def fake_encode(text):
 
 
 def embed_query(text, model):
-    # real embedding call, needs GPU — commented out for frontend-only testing
-    # return model.encode([text], normalize_embeddings=True)[0]
-    return fake_encode(text)
+    return model.encode([text], normalize_embeddings=True)[0]
+    # TEMPORARY stub, swap the line above for this one to test layout without the real model:
+    # return fake_encode(text)
 
 
 def top_matches(query_vec, centers, k=3):
@@ -127,7 +129,7 @@ st.markdown("""
 col_main, col_side = st.columns([2, 1])
 
 with col_main:
-    st.write("Type a skill phrase, or pick an example, to see which of the 30 learned clusters it's assigned to.")
+    st.write("Type a skill phrase, or pick an example, to see which of the learned clusters it's assigned to.")
 
     if "query_text" not in st.session_state:
         st.session_state.query_text = ""

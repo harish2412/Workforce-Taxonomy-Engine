@@ -8,3 +8,8 @@ data/processed/*.csv
 outputs/figures/*.png
 *.npy
 data/raw/rule_nlp_handoff/
+
+!outputs/figures/cluster_full_k30.png
+!outputs/figures/cluster_highlighted_k30.png
+!outputs/figures/cluster_full_k80.png
+!outputs/figures/cluster_highlighted_k80.png
