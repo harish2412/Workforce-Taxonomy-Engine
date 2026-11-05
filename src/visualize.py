@@ -7,7 +7,7 @@ import umap
 
 EMBEDDINGS_PATH = Path("data/processed/embeddings.npy")
 LABELS_PATH = Path("data/processed/cluster_labels.npy")
-STATEMENTS_PATH = Path("data/processed/unique_statements.csv")
+STATEMENTS_PATH = Path("data/processed/unique_statements_cleaned.csv")
 OUTPUT_PATH = Path("outputs/figures/cluster_visualization.png")
 
 

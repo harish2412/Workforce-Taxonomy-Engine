@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
 
 INPUT_PATH = Path("data/processed/embeddings.npy")
-BEST_K = 30
+BEST_K = 80
 SEEDS = [1, 2, 3]
 
 

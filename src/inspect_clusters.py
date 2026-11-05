@@ -8,6 +8,9 @@ LABELS_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data/processed/c
 STATEMENTS_PATH = Path("data/processed/unique_statements_cleaned.csv")
 SAMPLE_SIZE = 10
 
+# Windows redirects (> file.txt) default to cp1252, which can't encode emoji in some statements
+sys.stdout.reconfigure(encoding="utf-8")
+
 labels = np.load(LABELS_PATH)
 statements = pd.read_csv(STATEMENTS_PATH)["statement"]
 df = pd.DataFrame({"statement": statements, "cluster": labels})

@@ -24,7 +24,7 @@ ESCO_CATEGORIES = [
 ]
 
 
-def build_golden_set(statements_path="data/processed/unique_statements.csv",
+def build_golden_set(statements_path="data/processed/unique_statements_cleaned.csv",
                       labels_path="data/processed/cluster_labels.npy",
                       per_cluster=5, seed=42):
     statements = pd.read_csv(statements_path)["statement"]

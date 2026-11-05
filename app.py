@@ -1,8 +1,15 @@
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
 from sentence_transformers import SentenceTransformer
+
+sys.path.insert(0, "src")
+import esco_plots  # noqa: E402
+
+ESCO_K = 100  # which refined topic set the ESCO tab shows
 
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
 LABELS_PATH = "data/processed/cluster_labels_k30.npy"  # swap to _k80.npy to demo that version instead
@@ -117,91 +124,142 @@ def render_size_chart(sizes):
     return fig
 
 
+@st.cache_data
+def load_esco(k):
+    matches, per_topic = esco_plots.load(k)
+    return matches, per_topic, esco_plots.summary(matches)
+
+
+def render_esco_tab():
+    matches, per_topic, s = load_esco(ESCO_K)
+    theme = esco_plots.DARK
+    th = esco_plots.THRESHOLD
+
+    st.write(f"Every statement is matched to its nearest ESCO skill (13,960 skills, same 8B embedding model). "
+             f"k={ESCO_K} refined topics, {s['n_statements']:,} statements in kept topics.")
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(f"Coverage (similarity ≥ {th})", f"{s['coverage']:.0%}")
+    m2.metric("Purity, ESCO level 1", f"{s['purity_l1']:.0%}", f"{s['purity_l1'] - s['shuffled_l1']:+.0%} vs chance")
+    m3.metric("Purity, ESCO level 2", f"{s['purity_l2']:.0%}", f"{s['purity_l2'] - s['shuffled_l2']:+.0%} vs chance")
+    m4.metric("NMI, ESCO level 2", f"{s['nmi_l2']:.2f}")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        st.pyplot(esco_plots.coverage_curve(matches, theme))
+    with c2:
+        st.pyplot(esco_plots.purity_vs_baseline(s, theme))
+    c3, c4 = st.columns(2)
+    with c3:
+        st.pyplot(esco_plots.by_status(per_topic, theme))
+    with c4:
+        st.pyplot(esco_plots.by_domain(matches, per_topic, theme))
+    st.pyplot(esco_plots.topic_scatter(per_topic, theme))
+
+    st.markdown("##### Every topic")
+    cols = ["topic", "name", "status", "l3_name", "size", f"coverage_{th}", "purity_l1",
+            "top_esco_group_l1", "nearest_esco_skills"]
+    st.dataframe(per_topic[cols].rename(columns={"l3_name": "domain"}).sort_values(f"coverage_{th}"),
+                 hide_index=True, use_container_width=True)
+
+    st.markdown("##### Look up a statement's ESCO match")
+    q = st.text_input("Filter statements", key="esco_filter", placeholder="e.g. excel, forklift, patient")
+    shown = matches[matches["statement"].str.contains(q, case=False, na=False)] if q else matches.head(0)
+    if q:
+        st.dataframe(shown[["statement", "esco_skill", "similarity", "esco_level1"]].head(200),
+                     hide_index=True, use_container_width=True)
+
+
 model, df, centers, sizes = load_everything()
 
 st.markdown("""
 <div class="masthead">
-<div class="eyebrow">WORKFORCE TAXONOMY ENGINE · SPRINT 3 LIVE DEMO</div>
-<h1>Skill Taxonomy — Cluster Assignment</h1>
+<div class="eyebrow">WORKFORCE TAXONOMY ENGINE · LIVE DEMO</div>
+<h1>Skill Taxonomy — Cluster Assignment &amp; ESCO Evaluation</h1>
 </div>
 """, unsafe_allow_html=True)
 
-col_main, col_side = st.columns([2, 1])
+tab_search, tab_esco = st.tabs(["Cluster search", "ESCO evaluation"])
 
-with col_main:
-    st.write("Type a skill phrase, or pick an example, to see which of the learned clusters it's assigned to.")
+with tab_esco:
+    render_esco_tab()
 
-    if "query_text" not in st.session_state:
-        st.session_state.query_text = ""
+with tab_search:
+    col_main, col_side = st.columns([2, 1])
 
-    example_phrases = [
-        "machine learning",
-        "budget forecasting",
-        "customer service",
-        "patent prosecution",
-    ]
-    chip_cols = st.columns(len(example_phrases))
-    for i, phrase in enumerate(example_phrases):
-        with chip_cols[i]:
-            if st.button(phrase, key=f"chip_{i}"):
-                st.session_state.query_text = phrase
+    with col_main:
+        st.write("Type a skill phrase, or pick an example, to see which of the learned clusters it's assigned to.")
 
-    user_input = st.text_input(
-        "Skill phrase",
-        key="query_text",
-        placeholder="e.g. machine learning, budget forecasting",
-    )
+        if "query_text" not in st.session_state:
+            st.session_state.query_text = ""
 
-    if user_input:
-        query_vec = embed_query(user_input, model)
-        matches = top_matches(query_vec, centers, k=3)
+        example_phrases = [
+            "machine learning",
+            "budget forecasting",
+            "customer service",
+            "patent prosecution",
+        ]
+        chip_cols = st.columns(len(example_phrases))
+        for i, phrase in enumerate(example_phrases):
+            with chip_cols[i]:
+                if st.button(phrase, key=f"chip_{i}"):
+                    st.session_state.query_text = phrase
 
-        for rank, (cid, score) in enumerate(matches):
-            is_top = rank == 0
-            card_class = "match-card top" if is_top else "match-card"
-            label = "Best match" if is_top else f"Also close (#{rank + 1})"
+        user_input = st.text_input(
+            "Skill phrase",
+            key="query_text",
+            placeholder="e.g. machine learning, budget forecasting",
+        )
 
+        if user_input:
+            query_vec = embed_query(user_input, model)
+            matches = top_matches(query_vec, centers, k=3)
+
+            for rank, (cid, score) in enumerate(matches):
+                is_top = rank == 0
+                card_class = "match-card top" if is_top else "match-card"
+                label = "Best match" if is_top else f"Also close (#{rank + 1})"
+
+                st.markdown(
+                    '<div class="' + card_class + '">'
+                    '<div class="score">' + label.upper() + '</div>'
+                    '<div class="cluster-id">Cluster ' + str(cid) + '</div>'
+                    '<div class="score">similarity ' + f"{score:.3f}" + ' · ' + str(sizes[cid]) + ' statements in this cluster</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+
+                if is_top:
+                    examples = df[df["cluster"] == cid]["statement"]
+                    with st.expander(f"See statements in Cluster {cid}", expanded=True):
+                        with st.container(height=180):
+                            for ex in examples.sample(min(15, len(examples))):
+                                st.write(f"· {ex}")
+        else:
             st.markdown(
-                '<div class="' + card_class + '">'
-                '<div class="score">' + label.upper() + '</div>'
-                '<div class="cluster-id">Cluster ' + str(cid) + '</div>'
-                '<div class="score">similarity ' + f"{score:.3f}" + ' · ' + str(sizes[cid]) + ' statements in this cluster</div>'
+                '<div class="match-card" style="border-left-color: var(--rule); color: var(--ink-soft);">'
+                'Results will appear here once you type a phrase or pick an example above.'
                 '</div>',
                 unsafe_allow_html=True,
             )
 
-            if is_top:
-                examples = df[df["cluster"] == cid]["statement"]
-                with st.expander(f"See statements in Cluster {cid}", expanded=True):
-                    with st.container(height=180):
-                        for ex in examples.sample(min(15, len(examples))):
-                            st.write(f"· {ex}")
-    else:
+        st.markdown("##### Cluster sizes")
+        st.pyplot(render_size_chart(sizes))
+
+    with col_side:
+        st.markdown("### Explore clusters")
+        st.write("Browse any cluster's contents without typing anything.")
+
+        chosen_cluster = st.selectbox(
+            "Cluster",
+            options=sizes.index.tolist(),
+            format_func=lambda c: f"Cluster {c} ({sizes[c]} statements)",
+        )
         st.markdown(
-            '<div class="match-card" style="border-left-color: var(--rule); color: var(--ink-soft);">'
-            'Results will appear here once you type a phrase or pick an example above.'
-            '</div>',
+            '<div class="sidebar-cluster-stat">' + str(sizes[chosen_cluster]) + ' statements in this cluster</div>',
             unsafe_allow_html=True,
         )
 
-    st.markdown("##### Cluster sizes")
-    st.pyplot(render_size_chart(sizes))
-
-with col_side:
-    st.markdown("### Explore clusters")
-    st.write("Browse any cluster's contents without typing anything.")
-
-    chosen_cluster = st.selectbox(
-        "Cluster",
-        options=sizes.index.tolist(),
-        format_func=lambda c: f"Cluster {c} ({sizes[c]} statements)",
-    )
-    st.markdown(
-        '<div class="sidebar-cluster-stat">' + str(sizes[chosen_cluster]) + ' statements in this cluster</div>',
-        unsafe_allow_html=True,
-    )
-
-    browse_examples = df[df["cluster"] == chosen_cluster]["statement"]
-    with st.container(height=360):
-        for ex in browse_examples.sample(min(20, len(browse_examples))):
-            st.write(f"· {ex}")
+        browse_examples = df[df["cluster"] == chosen_cluster]["statement"]
+        with st.container(height=360):
+            for ex in browse_examples.sample(min(20, len(browse_examples))):
+                st.write(f"· {ex}")
