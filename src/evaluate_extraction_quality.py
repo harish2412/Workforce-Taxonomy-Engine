@@ -4,7 +4,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-MODEL_NAME = "all-MiniLM-L6-v2"  # fast, local; this is an evaluation helper, not the taxonomy pipeline
+MODEL_NAME = "Qwen/Qwen3-Embedding-8B" 
 MATCH_THRESHOLD = 0.6
 
 GOLDEN_PATH = Path("data/golden_set/golden_dataset.xlsx")
