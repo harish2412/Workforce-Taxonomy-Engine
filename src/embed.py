@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
 BATCH_SIZE = 8
-INPUT_PATH = Path("data/processed/unique_statements.csv")
+INPUT_PATH = Path("data/processed/unique_statements_cleaned.csv")
 OUTPUT_PATH = Path("data/processed/embeddings.npy")
 
 
