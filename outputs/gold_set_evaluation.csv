@@ -1,31 +1,31 @@
 initiative_id,initiative_name,expected_skills,predicted_skills,correct_matches,precision,recall
-1,Reduce handoff errors between the ED and inpatient teams by standardizing bedside shift reports,1,3,1,0.333,1.0
-2,Launch a monthly peer-teaching huddle where charge nurses walk new graduates through recent falls and medication near-misses,2,3,1,0.333,0.5
-3,"Stand up an outpatient mobility clinic for post-knee-replacement patients, from intake assessment through discharge exercises",1,3,1,0.333,1.0
-4,Move the surgical ward from paper progress notes to structured EHR charting templates,1,3,1,0.333,1.0
-5,Create individualized care pathways for diabetic patients and track adherence at follow-up visits,1,3,1,0.333,1.0
-6,Redesign the hospital kitchen's meal production so therapeutic diets reach patients on time,2,3,1,0.333,0.5
+1,Reduce handoff errors between the ED and inpatient teams by standardizing bedside shift reports,1,1,1,1.0,1.0
+2,Launch a monthly peer-teaching huddle where charge nurses walk new graduates through recent falls and medication near-misses,2,1,1,1.0,0.5
+3,"Stand up an outpatient mobility clinic for post-knee-replacement patients, from intake assessment through discharge exercises",1,1,1,1.0,1.0
+4,Move the surgical ward from paper progress notes to structured EHR charting templates,1,1,1,1.0,1.0
+5,Create individualized care pathways for diabetic patients and track adherence at follow-up visits,1,1,1,1.0,1.0
+6,Redesign the hospital kitchen's meal production so therapeutic diets reach patients on time,2,1,1,1.0,0.5
 7,"Serve as the clinical point of contact between immigration detention facilities and outside hospitals, reviewing care for people in custody",3,0,0,0.0,0.0
-8,Introduce a pre-op sedation protocol and monitor patients under general and regional blocks in the OR,1,3,1,0.333,1.0
-9,Represent the division on a regional working group and contribute sessions to its annual summit,1,3,1,0.333,1.0
-10,Act as the standing contact for county agencies and nonprofits that refer clients to the program,1,3,1,0.333,1.0
-11,Build the three-year roadmap for consolidating the agency's field offices and set milestones for each phase,2,3,1,0.333,0.5
-12,"Take over day-to-day running of the records branch, including its 14 employees and shift coverage",1,3,1,0.333,1.0
-13,"Run the battalion's awards, evaluations, and reenlistment programs and brief the commander on readiness",2,3,1,0.333,0.5
-14,"Be the go-to HR partner for two directorates on hiring, benefits, and employee relations",1,3,1,0.333,1.0
-15,Set weekly assignments for the inspection team and complete their annual appraisals,2,3,2,0.667,1.0
-16,Write measurable expectations for each call-center role and coach managers on rating against them,2,3,1,0.333,0.5
-17,"Field questions from supervisors and staff about leave, discipline, and grievance procedures",1,3,1,0.333,1.0
-18,"Audit job descriptions across the office, assign correct grades and series, and process the resulting promotions and reassignments",1,3,1,0.333,1.0
-19,Break in new deckhands each season and rotate them through watch duties,2,3,1,0.333,0.5
-20,"Build a new-hire onboarding curriculum, teach the first cohorts, and measure whether it shortens time to proficiency",1,3,1,0.333,1.0
-21,"Build the maintenance shop's weekly calendar so jobs, technicians, and parts line up",2,3,1,0.333,0.5
-22,Set par levels and monthly counts for the warehouse's consumables and spare parts,1,3,1,0.333,1.0
-23,Run readiness checks and repairs on a destroyer's fire-control radar and combat systems,2,3,1,0.333,0.5
-24,Replace the base's aging switchgear and transformers and keep power lines in service,1,3,1,0.333,1.0
-25,"Oversee budget and schedule for the agency's WAN, radio, and telephony programs",2,3,1,0.333,0.5
-26,Draft the department's acceptable-use and software-approval rules and gather system requirements from each bureau,1,3,1,0.333,1.0
-27,"Establish an enterprise security program covering risk assessments, incident response, and staff awareness",1,3,1,0.333,1.0
-28,"Run the help desk that resolves employee laptop, login, and printer issues",2,3,1,0.333,0.5
-29,Harden and patch the organization's Linux and Windows servers and keep them running,2,3,2,0.667,1.0
-30,Investigate a workplace injury on the warehouse floor and update safety procedures to prevent repeat incidents,1,3,1,0.333,1.0
+8,Introduce a pre-op sedation protocol and monitor patients under general and regional blocks in the OR,1,1,1,1.0,1.0
+9,Represent the division on a regional working group and contribute sessions to its annual summit,1,1,1,1.0,1.0
+10,Act as the standing contact for county agencies and nonprofits that refer clients to the program,1,1,1,1.0,1.0
+11,Build the three-year roadmap for consolidating the agency's field offices and set milestones for each phase,2,1,0,0.0,0.0
+12,"Take over day-to-day running of the records branch, including its 14 employees and shift coverage",1,1,1,1.0,1.0
+13,"Run the battalion's awards, evaluations, and reenlistment programs and brief the commander on readiness",2,1,1,1.0,0.5
+14,"Be the go-to HR partner for two directorates on hiring, benefits, and employee relations",1,1,1,1.0,1.0
+15,Set weekly assignments for the inspection team and complete their annual appraisals,2,1,1,1.0,0.5
+16,Write measurable expectations for each call-center role and coach managers on rating against them,2,1,1,1.0,0.5
+17,"Field questions from supervisors and staff about leave, discipline, and grievance procedures",1,1,1,1.0,1.0
+18,"Audit job descriptions across the office, assign correct grades and series, and process the resulting promotions and reassignments",1,1,1,1.0,1.0
+19,Break in new deckhands each season and rotate them through watch duties,2,1,1,1.0,0.5
+20,"Build a new-hire onboarding curriculum, teach the first cohorts, and measure whether it shortens time to proficiency",1,1,1,1.0,1.0
+21,"Build the maintenance shop's weekly calendar so jobs, technicians, and parts line up",2,1,1,1.0,0.5
+22,Set par levels and monthly counts for the warehouse's consumables and spare parts,1,1,1,1.0,1.0
+23,Run readiness checks and repairs on a destroyer's fire-control radar and combat systems,2,1,0,0.0,0.0
+24,Replace the base's aging switchgear and transformers and keep power lines in service,1,1,1,1.0,1.0
+25,"Oversee budget and schedule for the agency's WAN, radio, and telephony programs",2,1,1,1.0,0.5
+26,Draft the department's acceptable-use and software-approval rules and gather system requirements from each bureau,1,1,1,1.0,1.0
+27,"Establish an enterprise security program covering risk assessments, incident response, and staff awareness",1,1,1,1.0,1.0
+28,"Run the help desk that resolves employee laptop, login, and printer issues",2,1,1,1.0,0.5
+29,Harden and patch the organization's Linux and Windows servers and keep them running,2,1,1,1.0,0.5
+30,Investigate a workplace injury on the warehouse floor and update safety procedures to prevent repeat incidents,1,1,1,1.0,1.0

@@ -4,7 +4,7 @@ import pandas as pd
 
 GOLD_SET_PATH = Path("outputs/gold_set_revised.csv")
 SIMILARITY_PATH = Path("outputs/task_skill_similarity_top5.csv")
-OUTPUT_PATH = Path("outputs/gold_set_evaluation.csv")
+OUTPUT_PATH = Path("outputs/gold_set_evaluation_top3.csv")
 
 gold = pd.read_csv(GOLD_SET_PATH)
 sims = pd.read_csv(SIMILARITY_PATH)
