@@ -5,7 +5,9 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
-LABELS_PATH = "data/processed/topic_labels_k100_refined.npy"
+K = 100
+LABELS_PATH = f"data/processed/topic_labels_k{K}_refined.npy"
+HIERARCHY_PATH = f"outputs/topics/hierarchy_k{K}.csv"
 
 st.set_page_config(page_title="Skill Taxonomy Engine", layout="wide")
 
@@ -64,6 +66,7 @@ def load_everything():
     embeddings = np.load("data/processed/embeddings.npy")
     labels = np.load(LABELS_PATH)
     statements = pd.read_csv("data/processed/unique_statements_cleaned.csv")["statement"]
+    hierarchy = pd.read_csv(HIERARCHY_PATH)
 
     model = SentenceTransformer(MODEL_NAME)
     # TEMPORARY, frontend-only testing without GPU — uncomment this and comment the
@@ -71,13 +74,22 @@ def load_everything():
     # model = None
 
     df = pd.DataFrame({"statement": statements, "cluster": labels})
-    centers = {cid: embeddings[labels == cid].mean(axis=0) for cid in sorted(set(labels))}
-    sizes = df["cluster"].value_counts().sort_index()
+    # -1 marks statements in topics that were dropped as "noise" — exclude them
+    valid_topics = set(hierarchy["topic"])
+    df = df[df["cluster"].isin(valid_topics)]
 
-    return model, df, centers, sizes
+    centers = {cid: embeddings[labels == cid].mean(axis=0) for cid in valid_topics}
+    sizes = df["cluster"].value_counts().sort_values(ascending=False)
+    names = dict(zip(hierarchy["topic"], hierarchy["name"]))
+
+    return model, df, centers, sizes, names
 
 
-# Frontend-only testing stub, no GPU needed. Not used while the real model above is active.
+def topic_label(cid, names):
+    return names.get(cid, f"Topic {cid}")
+
+
+# TEMPORARY — frontend testing only, no GPU needed. Remove before the real demo.
 def fake_encode(text):
     rng = np.random.default_rng(abs(hash(text)) % (2**32))
     vec = rng.random(4096)
@@ -99,37 +111,39 @@ def top_matches(query_vec, centers, k=3):
     return scores[:k]
 
 
-def render_size_chart(sizes):
-    fig, ax = plt.subplots(figsize=(5, 2.1))
+def render_size_chart(sizes, names, top_n=20):
+    top_sizes = sizes.head(top_n)
+    labels_short = [topic_label(c, names)[:22] for c in top_sizes.index]
+
+    fig, ax = plt.subplots(figsize=(6, 3.2))
     fig.patch.set_facecolor("#121B2E")
     ax.set_facecolor("#121B2E")
-    ax.bar(sizes.index, sizes.values, color="#D8A85C", width=0.7)
-    ax.set_xlabel("Cluster", color="#EDEFF2", fontsize=8)
-    ax.set_ylabel("Statements", color="#EDEFF2", fontsize=8)
+    ax.barh(labels_short[::-1], top_sizes.values[::-1], color="#D8A85C")
+    ax.set_xlabel("Statements", color="#EDEFF2", fontsize=8)
     ax.tick_params(colors="#9AA7BD", labelsize=7)
     for spine in ["top", "right"]:
         ax.spines[spine].set_visible(False)
     for spine in ["left", "bottom"]:
         ax.spines[spine].set_color("#2E3B57")
-    ax.grid(axis="y", color="#2E3B57", linewidth=0.5, alpha=0.8)
+    ax.grid(axis="x", color="#2E3B57", linewidth=0.5, alpha=0.8)
     ax.set_axisbelow(True)
     fig.tight_layout()
     return fig
 
 
-model, df, centers, sizes = load_everything()
+model, df, centers, sizes, names = load_everything()
 
-st.markdown("""
+st.markdown(f"""
 <div class="masthead">
-<div class="eyebrow">WORKFORCE TAXONOMY ENGINE · SPRINT 3 LIVE DEMO</div>
-<h1>Skill Taxonomy — Cluster Assignment</h1>
+<div class="eyebrow">WORKFORCE TAXONOMY ENGINE · SPRINT 4 LIVE DEMO · k={K}</div>
+<h1>Skill Taxonomy — Topic Assignment</h1>
 </div>
 """, unsafe_allow_html=True)
 
 col_main, col_side = st.columns([2, 1])
 
 with col_main:
-    st.write("Type a skill phrase, or pick an example, to see which of the learned clusters it's assigned to.")
+    st.write("Type a skill phrase, or pick an example, to see which of the learned topics it's assigned to.")
 
     if "query_text" not in st.session_state:
         st.session_state.query_text = ""
@@ -160,19 +174,20 @@ with col_main:
             is_top = rank == 0
             card_class = "match-card top" if is_top else "match-card"
             label = "Best match" if is_top else f"Also close (#{rank + 1})"
+            name = topic_label(cid, names)
 
             st.markdown(
                 '<div class="' + card_class + '">'
                 '<div class="score">' + label.upper() + '</div>'
-                '<div class="cluster-id">Cluster ' + str(cid) + '</div>'
-                '<div class="score">similarity ' + f"{score:.3f}" + ' · ' + str(sizes[cid]) + ' statements in this cluster</div>'
+                '<div class="cluster-id">' + name + '</div>'
+                '<div class="score">similarity ' + f"{score:.3f}" + ' · ' + str(sizes[cid]) + ' statements in this topic</div>'
                 '</div>',
                 unsafe_allow_html=True,
             )
 
             if is_top:
                 examples = df[df["cluster"] == cid]["statement"]
-                with st.expander(f"See statements in Cluster {cid}", expanded=True):
+                with st.expander(f"See statements in \"{name}\"", expanded=True):
                     with st.container(height=180):
                         for ex in examples.sample(min(15, len(examples))):
                             st.write(f"· {ex}")
@@ -184,20 +199,20 @@ with col_main:
             unsafe_allow_html=True,
         )
 
-    st.markdown("##### Cluster sizes")
-    st.pyplot(render_size_chart(sizes))
+    st.markdown("##### Largest topics")
+    st.pyplot(render_size_chart(sizes, names))
 
 with col_side:
-    st.markdown("### Explore clusters")
-    st.write("Browse any cluster's contents without typing anything.")
+    st.markdown("### Explore topics")
+    st.write("Browse any topic's contents without typing anything.")
 
     chosen_cluster = st.selectbox(
-        "Cluster",
+        "Topic",
         options=sizes.index.tolist(),
-        format_func=lambda c: f"Cluster {c} ({sizes[c]} statements)",
+        format_func=lambda c: f"{topic_label(c, names)} ({sizes[c]} statements)",
     )
     st.markdown(
-        '<div class="sidebar-cluster-stat">' + str(sizes[chosen_cluster]) + ' statements in this cluster</div>',
+        '<div class="sidebar-cluster-stat">' + str(sizes[chosen_cluster]) + ' statements in this topic</div>',
         unsafe_allow_html=True,
     )
 
