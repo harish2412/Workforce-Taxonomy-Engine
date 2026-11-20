@@ -1,0 +1,31 @@
+initiative_id,initiative_name,expected_skills,predicted_skills,correct_matches,precision,recall
+1,Initiative involving: Provide and coordinate patient care,1,3,1,0.333,1.0
+2,Initiative involving: Share nursing knowledge to support safe patient care,1,3,1,0.333,1.0
+3,Initiative involving: Provide physical therapy evaluation and treatment,1,3,1,0.333,1.0
+4,Initiative involving: Document patient medical records and notes,1,3,1,0.333,1.0
+5,Initiative involving: Develop and implement treatment plans,1,3,1,0.333,1.0
+6,Initiative involving: Coordinate food service operations and clinical nutrition programs,1,3,1,0.333,1.0
+7,Initiative involving: Provide medical oversight and liaison for detained non‑citizens,1,3,1,0.333,1.0
+8,Initiative involving: Administer and manage anesthesia care,1,3,1,0.333,1.0
+9,"Initiative involving: Participate in meetings, conferences, and projects",1,3,1,0.333,1.0
+10,Initiative involving: Maintain liaison with external organizations,1,3,1,0.333,1.0
+11,Initiative involving: Lead project planning and strategic initiatives,1,3,1,0.333,1.0
+12,Initiative involving: Supervise staff and oversee unit operations,1,3,1,0.333,1.0
+13,Initiative involving: Administer military personnel programs and advise commanders,1,3,1,0.333,1.0
+14,Initiative involving: Provide HR management and advisory services,1,3,1,0.333,1.0
+15,Initiative involving: Direct and evaluate the work of subordinates,1,3,1,0.333,1.0
+16,Initiative involving: Develop and manage employee performance standards,1,3,1,0.333,1.0
+17,Initiative involving: Advise employees and managers on personnel matters,1,3,1,0.333,1.0
+18,Initiative involving: Manage position classification and personnel actions,1,3,1,0.333,1.0
+19,Initiative involving: Assign work and train crew members,1,3,1,0.333,1.0
+20,"Initiative involving: Develop, deliver, and evaluate training programs",1,3,1,0.333,1.0
+21,Initiative involving: Perform other duties as assigned,1,3,1,0.333,1.0
+22,Initiative involving: Plan and schedule work activities,1,3,1,0.333,1.0
+23,Initiative involving: Maintain inventory of supplies and materials,1,3,1,0.333,1.0
+24,Initiative involving: Assess and maintain shipboard weapon and electronic systems,1,3,1,0.333,1.0
+25,"Initiative involving: Install, repair, and maintain electrical distribution systems",1,3,1,0.333,1.0
+26,Initiative involving: Manage networking and communications portfolio programs,1,3,1,0.333,1.0
+27,Initiative involving: Develop and coordinate IT policies and requirements,1,3,1,0.333,1.0
+28,Initiative involving: Develop and manage comprehensive cybersecurity programs,1,3,1,0.333,1.0
+29,Initiative involving: Provide technical support and customer service,1,3,1,0.333,1.0
+30,"Initiative involving: Configure, secure, and maintain server systems",1,3,1,0.333,1.0

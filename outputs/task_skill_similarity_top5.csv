@@ -1,0 +1,231 @@
+task_id,task_name,task_status,rank,skill_id,skill_name,skill_status,similarity
+0,Administer and review polygraph examinations,persistent,1,33,"Testing, Evaluation & Reporting",low_specificity,0.7041
+0,Administer and review polygraph examinations,persistent,2,52,Regulatory Compliance & Policy Adherence,keep,0.6962
+0,Administer and review polygraph examinations,persistent,3,12,General Management & Supervision,low_specificity,0.6794
+0,Administer and review polygraph examinations,persistent,4,35,Professional Certifications & Credentials,low_specificity,0.6737
+0,Administer and review polygraph examinations,persistent,5,36,Employee Training & Professional Development,low_specificity,0.6709
+1,Coordinate food service operations and clinical nutrition programs,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7448
+1,Coordinate food service operations and clinical nutrition programs,persistent,2,48,Culinary Arts & Food Service,keep,0.7116
+1,Coordinate food service operations and clinical nutrition programs,persistent,3,1,Problem Solving & Decision Making,low_specificity,0.6879
+1,Coordinate food service operations and clinical nutrition programs,persistent,4,96,Following & Comprehending Instructions,keep,0.6806
+1,Coordinate food service operations and clinical nutrition programs,persistent,5,12,General Management & Supervision,low_specificity,0.6777
+2,Provide medical oversight and liaison for detained non‑citizens,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7732
+2,Provide medical oversight and liaison for detained non‑citizens,persistent,2,52,Regulatory Compliance & Policy Adherence,keep,0.7099
+2,Provide medical oversight and liaison for detained non‑citizens,persistent,3,12,General Management & Supervision,low_specificity,0.6941
+2,Provide medical oversight and liaison for detained non‑citizens,persistent,4,33,"Testing, Evaluation & Reporting",low_specificity,0.6704
+2,Provide medical oversight and liaison for detained non‑citizens,persistent,5,47,Legal Practice & Litigation,keep,0.6667
+3,Administer and manage anesthesia care,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7501
+3,Administer and manage anesthesia care,persistent,2,12,General Management & Supervision,low_specificity,0.6735
+3,Administer and manage anesthesia care,persistent,3,38,Business Process & Operations Management,low_specificity,0.6694
+3,Administer and manage anesthesia care,persistent,4,98,Composure & Adaptability Under Pressure,keep,0.6573
+3,Administer and manage anesthesia care,persistent,5,96,Following & Comprehending Instructions,keep,0.6571
+4,Provide and coordinate patient care,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7616
+4,Provide and coordinate patient care,persistent,2,0,Results Orientation & Goal Achievement,low_specificity,0.6999
+4,Provide and coordinate patient care,persistent,3,98,Composure & Adaptability Under Pressure,keep,0.6872
+4,Provide and coordinate patient care,persistent,4,72,Quality Management & Continuous Improvement,keep,0.6863
+4,Provide and coordinate patient care,persistent,5,12,General Management & Supervision,low_specificity,0.6849
+6,Assign work and train crew members,persistent,1,82,Team Leadership & Motivation,keep,0.7636
+6,Assign work and train crew members,persistent,2,12,General Management & Supervision,low_specificity,0.7532
+6,Assign work and train crew members,persistent,3,28,Multitasking & Task Prioritization,keep,0.7386
+6,Assign work and train crew members,persistent,4,97,Work Schedule Flexibility & Availability,keep,0.7351
+6,Assign work and train crew members,persistent,5,66,Teamwork & Cross-Functional Collaboration,keep,0.7214
+8,Share nursing knowledge to support safe patient care,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.8122
+8,Share nursing knowledge to support safe patient care,persistent,2,8,Effective Interpersonal Communication,keep,0.7442
+8,Share nursing knowledge to support safe patient care,persistent,3,98,Composure & Adaptability Under Pressure,keep,0.7275
+8,Share nursing knowledge to support safe patient care,persistent,4,66,Teamwork & Cross-Functional Collaboration,keep,0.7252
+8,Share nursing knowledge to support safe patient care,persistent,5,82,Team Leadership & Motivation,keep,0.725
+10,Provide physical therapy evaluation and treatment,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.748
+10,Provide physical therapy evaluation and treatment,persistent,2,36,Employee Training & Professional Development,low_specificity,0.666
+10,Provide physical therapy evaluation and treatment,persistent,3,12,General Management & Supervision,low_specificity,0.6436
+10,Provide physical therapy evaluation and treatment,persistent,4,98,Composure & Adaptability Under Pressure,keep,0.64
+10,Provide physical therapy evaluation and treatment,persistent,5,8,Effective Interpersonal Communication,keep,0.6286
+11,Document patient medical records and notes,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7596
+11,Document patient medical records and notes,persistent,2,96,Following & Comprehending Instructions,keep,0.6967
+11,Document patient medical records and notes,persistent,3,104,"Document, File & Records Handling",mixed_unresolved,0.6832
+11,Document patient medical records and notes,persistent,4,33,"Testing, Evaluation & Reporting",low_specificity,0.6805
+11,Document patient medical records and notes,persistent,5,52,Regulatory Compliance & Policy Adherence,keep,0.6803
+13,Develop and implement treatment plans,persistent,1,14,Healthcare & Clinical Patient Care,low_specificity,0.7585
+13,Develop and implement treatment plans,persistent,2,1,Problem Solving & Decision Making,low_specificity,0.7192
+13,Develop and implement treatment plans,persistent,3,98,Composure & Adaptability Under Pressure,keep,0.6975
+13,Develop and implement treatment plans,persistent,4,96,Following & Comprehending Instructions,keep,0.6974
+13,Develop and implement treatment plans,persistent,5,0,Results Orientation & Goal Achievement,low_specificity,0.6909
+14,Maintain inventory of supplies and materials,persistent,1,38,Business Process & Operations Management,low_specificity,0.7687
+14,Maintain inventory of supplies and materials,persistent,2,13,"Supply Chain, Inventory & Warehouse Management",keep,0.7633
+14,Maintain inventory of supplies and materials,persistent,3,12,General Management & Supervision,low_specificity,0.7612
+14,Maintain inventory of supplies and materials,persistent,4,25,Industrial Equipment & Facility Maintenance,low_specificity,0.7609
+14,Maintain inventory of supplies and materials,persistent,5,72,Quality Management & Continuous Improvement,keep,0.7478
+15,Manage networking and communications portfolio programs,persistent,1,12,General Management & Supervision,low_specificity,0.6988
+15,Manage networking and communications portfolio programs,persistent,2,18,Stakeholder & Partnership Management,keep,0.6882
+15,Manage networking and communications portfolio programs,persistent,3,83,Prior Role Experience References,low_specificity,0.6838
+15,Manage networking and communications portfolio programs,persistent,4,28,Multitasking & Task Prioritization,keep,0.6751
+15,Manage networking and communications portfolio programs,persistent,5,8,Effective Interpersonal Communication,keep,0.673
+16,Interpret and advise on securities laws for investment entities,persistent,1,52,Regulatory Compliance & Policy Adherence,keep,0.7308
+16,Interpret and advise on securities laws for investment entities,persistent,2,18,Stakeholder & Partnership Management,keep,0.6523
+16,Interpret and advise on securities laws for investment entities,persistent,3,78,Accounting & Tax Compliance,keep,0.6439
+16,Interpret and advise on securities laws for investment entities,persistent,4,83,Prior Role Experience References,low_specificity,0.6419
+16,Interpret and advise on securities laws for investment entities,persistent,5,1,Problem Solving & Decision Making,low_specificity,0.6385
+18,Investigate accidents and mishaps,persistent,1,87,Workplace Safety & PPE Compliance,keep,0.8125
+18,Investigate accidents and mishaps,persistent,2,1,Problem Solving & Decision Making,low_specificity,0.7371
+18,Investigate accidents and mishaps,persistent,3,52,Regulatory Compliance & Policy Adherence,keep,0.727
+18,Investigate accidents and mishaps,persistent,4,38,Business Process & Operations Management,low_specificity,0.7191
+18,Investigate accidents and mishaps,persistent,5,12,General Management & Supervision,low_specificity,0.715
+19,"Plan, conduct, and improve audit programs",persistent,1,52,Regulatory Compliance & Policy Adherence,keep,0.7279
+19,"Plan, conduct, and improve audit programs",persistent,2,12,General Management & Supervision,low_specificity,0.7217
+19,"Plan, conduct, and improve audit programs",persistent,3,1,Problem Solving & Decision Making,low_specificity,0.7116
+19,"Plan, conduct, and improve audit programs",persistent,4,83,Prior Role Experience References,low_specificity,0.7106
+19,"Plan, conduct, and improve audit programs",persistent,5,78,Accounting & Tax Compliance,keep,0.7093
+20,Maintain and analyze accounting records,persistent,1,78,Accounting & Tax Compliance,keep,0.8261
+20,Maintain and analyze accounting records,persistent,2,83,Prior Role Experience References,low_specificity,0.768
+20,Maintain and analyze accounting records,persistent,3,5,Budgeting & Cost Management,keep,0.7496
+20,Maintain and analyze accounting records,persistent,4,52,Regulatory Compliance & Policy Adherence,keep,0.748
+20,Maintain and analyze accounting records,persistent,5,121,Financial Transactions & Statements,mixed_unresolved,0.7453
+21,"Participate in meetings, conferences, and projects",persistent,1,18,Stakeholder & Partnership Management,keep,0.8121
+21,"Participate in meetings, conferences, and projects",persistent,2,66,Teamwork & Cross-Functional Collaboration,keep,0.7944
+21,"Participate in meetings, conferences, and projects",persistent,3,8,Effective Interpersonal Communication,keep,0.7811
+21,"Participate in meetings, conferences, and projects",persistent,4,12,General Management & Supervision,low_specificity,0.7691
+21,"Participate in meetings, conferences, and projects",persistent,5,1,Problem Solving & Decision Making,low_specificity,0.7634
+31,"Provide legal research, advice and litigation support",provisional,1,47,Legal Practice & Litigation,keep,0.7902
+31,"Provide legal research, advice and litigation support",provisional,2,1,Problem Solving & Decision Making,low_specificity,0.7535
+31,"Provide legal research, advice and litigation support",provisional,3,52,Regulatory Compliance & Policy Adherence,keep,0.7451
+31,"Provide legal research, advice and litigation support",provisional,4,96,Following & Comprehending Instructions,keep,0.7189
+31,"Provide legal research, advice and litigation support",provisional,5,98,Composure & Adaptability Under Pressure,keep,0.6948
+32,Conduct criminal investigations,provisional,1,52,Regulatory Compliance & Policy Adherence,keep,0.7189
+32,Conduct criminal investigations,provisional,2,47,Legal Practice & Litigation,keep,0.7163
+32,Conduct criminal investigations,provisional,3,1,Problem Solving & Decision Making,low_specificity,0.6915
+32,Conduct criminal investigations,provisional,4,83,Prior Role Experience References,low_specificity,0.6794
+32,Conduct criminal investigations,provisional,5,96,Following & Comprehending Instructions,keep,0.6727
+33,Prepare and deliver survey reports and analyses,persistent,1,1,Problem Solving & Decision Making,low_specificity,0.8439
+33,Prepare and deliver survey reports and analyses,persistent,2,96,Following & Comprehending Instructions,keep,0.7933
+33,Prepare and deliver survey reports and analyses,persistent,3,12,General Management & Supervision,low_specificity,0.7829
+33,Prepare and deliver survey reports and analyses,persistent,4,8,Effective Interpersonal Communication,keep,0.7765
+33,Prepare and deliver survey reports and analyses,persistent,5,52,Regulatory Compliance & Policy Adherence,keep,0.7732
+34,Interpret policies and evaluate compliance with regulations,persistent,1,52,Regulatory Compliance & Policy Adherence,keep,0.8571
+34,Interpret policies and evaluate compliance with regulations,persistent,2,12,General Management & Supervision,low_specificity,0.7733
+34,Interpret policies and evaluate compliance with regulations,persistent,3,38,Business Process & Operations Management,low_specificity,0.7692
+34,Interpret policies and evaluate compliance with regulations,persistent,4,96,Following & Comprehending Instructions,keep,0.7527
+34,Interpret policies and evaluate compliance with regulations,persistent,5,72,Quality Management & Continuous Improvement,keep,0.7521
+36,Maintain liaison with external organizations,persistent,1,18,Stakeholder & Partnership Management,keep,0.7697
+36,Maintain liaison with external organizations,persistent,2,79,Relationship Building & Management,keep,0.7349
+36,Maintain liaison with external organizations,persistent,3,8,Effective Interpersonal Communication,keep,0.7154
+36,Maintain liaison with external organizations,persistent,4,12,General Management & Supervision,low_specificity,0.7026
+36,Maintain liaison with external organizations,persistent,5,83,Prior Role Experience References,low_specificity,0.7008
+37,Lead project planning and strategic initiatives,persistent,1,82,Team Leadership & Motivation,keep,0.8093
+37,Lead project planning and strategic initiatives,persistent,2,90,Leadership & People Management,low_specificity,0.7895
+37,Lead project planning and strategic initiatives,persistent,3,12,General Management & Supervision,low_specificity,0.7652
+37,Lead project planning and strategic initiatives,persistent,4,1,Problem Solving & Decision Making,low_specificity,0.7625
+37,Lead project planning and strategic initiatives,persistent,5,28,Multitasking & Task Prioritization,keep,0.7625
+40,Prepare and submit monthly reports,persistent,1,38,Business Process & Operations Management,low_specificity,0.7502
+40,Prepare and submit monthly reports,persistent,2,33,"Testing, Evaluation & Reporting",low_specificity,0.7435
+40,Prepare and submit monthly reports,persistent,3,28,Multitasking & Task Prioritization,keep,0.7413
+40,Prepare and submit monthly reports,persistent,4,12,General Management & Supervision,low_specificity,0.7275
+40,Prepare and submit monthly reports,persistent,5,1,Problem Solving & Decision Making,low_specificity,0.7237
+41,Maintain and prepare reports and records,persistent,1,52,Regulatory Compliance & Policy Adherence,keep,0.7856
+41,Maintain and prepare reports and records,persistent,2,33,"Testing, Evaluation & Reporting",low_specificity,0.758
+41,Maintain and prepare reports and records,persistent,3,38,Business Process & Operations Management,low_specificity,0.754
+41,Maintain and prepare reports and records,persistent,4,72,Quality Management & Continuous Improvement,keep,0.7484
+41,Maintain and prepare reports and records,persistent,5,1,Problem Solving & Decision Making,low_specificity,0.7442
+42,"Develop, deliver, and evaluate training programs",persistent,1,36,Employee Training & Professional Development,low_specificity,0.8877
+42,"Develop, deliver, and evaluate training programs",persistent,2,42,"Teaching, Pedagogy & Instructional Design",keep,0.7912
+42,"Develop, deliver, and evaluate training programs",persistent,3,82,Team Leadership & Motivation,keep,0.7739
+42,"Develop, deliver, and evaluate training programs",persistent,4,1,Problem Solving & Decision Making,low_specificity,0.7662
+42,"Develop, deliver, and evaluate training programs",persistent,5,96,Following & Comprehending Instructions,keep,0.7626
+43,Supervise staff and oversee unit operations,persistent,1,12,General Management & Supervision,low_specificity,0.7883
+43,Supervise staff and oversee unit operations,persistent,2,82,Team Leadership & Motivation,keep,0.786
+43,Supervise staff and oversee unit operations,persistent,3,83,Prior Role Experience References,low_specificity,0.7582
+43,Supervise staff and oversee unit operations,persistent,4,90,Leadership & People Management,low_specificity,0.7561
+43,Supervise staff and oversee unit operations,persistent,5,28,Multitasking & Task Prioritization,keep,0.7477
+44,Administer military personnel programs and advise commanders,persistent,1,107,"Military, Defense & Government Service",mixed_unresolved,0.8073
+44,Administer military personnel programs and advise commanders,persistent,2,12,General Management & Supervision,low_specificity,0.7661
+44,Administer military personnel programs and advise commanders,persistent,3,52,Regulatory Compliance & Policy Adherence,keep,0.7575
+44,Administer military personnel programs and advise commanders,persistent,4,83,Prior Role Experience References,low_specificity,0.7393
+44,Administer military personnel programs and advise commanders,persistent,5,38,Business Process & Operations Management,low_specificity,0.7329
+45,Direct and evaluate the work of subordinates,persistent,1,12,General Management & Supervision,low_specificity,0.7919
+45,Direct and evaluate the work of subordinates,persistent,2,82,Team Leadership & Motivation,keep,0.753
+45,Direct and evaluate the work of subordinates,persistent,3,83,Prior Role Experience References,low_specificity,0.7463
+45,Direct and evaluate the work of subordinates,persistent,4,22,Independent Work & Self-Direction,keep,0.7225
+45,Direct and evaluate the work of subordinates,persistent,5,39,Human Resources Management & HR Systems,keep,0.7069
+47,Assess and maintain shipboard weapon and electronic systems,persistent,1,38,Business Process & Operations Management,low_specificity,0.7381
+47,Assess and maintain shipboard weapon and electronic systems,persistent,2,107,"Military, Defense & Government Service",mixed_unresolved,0.7305
+47,Assess and maintain shipboard weapon and electronic systems,persistent,3,12,General Management & Supervision,low_specificity,0.7303
+47,Assess and maintain shipboard weapon and electronic systems,persistent,4,21,System Administration & Configuration,low_specificity,0.7251
+47,Assess and maintain shipboard weapon and electronic systems,persistent,5,44,Electrical & Electronic Engineering,keep,0.7195
+49,Perform other duties as assigned,persistent,1,28,Multitasking & Task Prioritization,keep,0.7657
+49,Perform other duties as assigned,persistent,2,97,Work Schedule Flexibility & Availability,keep,0.7616
+49,Perform other duties as assigned,persistent,3,83,Prior Role Experience References,low_specificity,0.7542
+49,Perform other duties as assigned,persistent,4,22,Independent Work & Self-Direction,keep,0.7396
+49,Perform other duties as assigned,persistent,5,12,General Management & Supervision,low_specificity,0.7293
+50,"Install, repair, and maintain electrical distribution systems",persistent,1,25,Industrial Equipment & Facility Maintenance,low_specificity,0.8218
+50,"Install, repair, and maintain electrical distribution systems",persistent,2,44,Electrical & Electronic Engineering,keep,0.7914
+50,"Install, repair, and maintain electrical distribution systems",persistent,3,21,System Administration & Configuration,low_specificity,0.7393
+50,"Install, repair, and maintain electrical distribution systems",persistent,4,38,Business Process & Operations Management,low_specificity,0.739
+50,"Install, repair, and maintain electrical distribution systems",persistent,5,71,Construction & Building Maintenance,keep,0.7378
+51,Develop and coordinate IT policies and requirements,persistent,1,127,IT Service Management & SOA,mixed_unresolved,0.7875
+51,Develop and coordinate IT policies and requirements,persistent,2,12,General Management & Supervision,low_specificity,0.778
+51,Develop and coordinate IT policies and requirements,persistent,3,21,System Administration & Configuration,low_specificity,0.7691
+51,Develop and coordinate IT policies and requirements,persistent,4,1,Problem Solving & Decision Making,low_specificity,0.7679
+51,Develop and coordinate IT policies and requirements,persistent,5,83,Prior Role Experience References,low_specificity,0.7597
+52,Develop and manage comprehensive cybersecurity programs,persistent,1,93,Information Security & Cybersecurity Practices,keep,0.7561
+52,Develop and manage comprehensive cybersecurity programs,persistent,2,127,IT Service Management & SOA,mixed_unresolved,0.7276
+52,Develop and manage comprehensive cybersecurity programs,persistent,3,21,System Administration & Configuration,low_specificity,0.7165
+52,Develop and manage comprehensive cybersecurity programs,persistent,4,12,General Management & Supervision,low_specificity,0.7124
+52,Develop and manage comprehensive cybersecurity programs,persistent,5,83,Prior Role Experience References,low_specificity,0.7032
+53,Provide technical support and customer service,persistent,1,26,Customer Service & Client Support,keep,0.8138
+53,Provide technical support and customer service,persistent,2,126,Generic Service-Related Terms,low_specificity,0.7822
+53,Provide technical support and customer service,persistent,3,1,Problem Solving & Decision Making,low_specificity,0.7733
+53,Provide technical support and customer service,persistent,4,127,IT Service Management & SOA,mixed_unresolved,0.7689
+53,Provide technical support and customer service,persistent,5,12,General Management & Supervision,low_specificity,0.7491
+55,"Configure, secure, and maintain server systems",persistent,1,21,System Administration & Configuration,low_specificity,0.7736
+55,"Configure, secure, and maintain server systems",persistent,2,93,Information Security & Cybersecurity Practices,keep,0.7363
+55,"Configure, secure, and maintain server systems",persistent,3,127,IT Service Management & SOA,mixed_unresolved,0.7146
+55,"Configure, secure, and maintain server systems",persistent,4,12,General Management & Supervision,low_specificity,0.7057
+55,"Configure, secure, and maintain server systems",persistent,5,38,Business Process & Operations Management,low_specificity,0.6995
+56,Troubleshoot and resolve technical system problems,provisional,1,1,Problem Solving & Decision Making,low_specificity,0.8397
+56,Troubleshoot and resolve technical system problems,provisional,2,51,Solution Design & Architecture,low_specificity,0.7977
+56,Troubleshoot and resolve technical system problems,provisional,3,62,Complex Problem Solving,low_specificity,0.7781
+56,Troubleshoot and resolve technical system problems,provisional,4,21,System Administration & Configuration,low_specificity,0.7771
+56,Troubleshoot and resolve technical system problems,provisional,5,98,Composure & Adaptability Under Pressure,keep,0.7568
+57,Plan and schedule work activities,persistent,1,28,Multitasking & Task Prioritization,keep,0.8539
+57,Plan and schedule work activities,persistent,2,7,Project & Product Management,keep,0.7745
+57,Plan and schedule work activities,persistent,3,12,General Management & Supervision,low_specificity,0.7742
+57,Plan and schedule work activities,persistent,4,22,Independent Work & Self-Direction,keep,0.7688
+57,Plan and schedule work activities,persistent,5,82,Team Leadership & Motivation,keep,0.7668
+58,Review construction plans and ensure code compliance,persistent,1,71,Construction & Building Maintenance,keep,0.768
+58,Review construction plans and ensure code compliance,persistent,2,52,Regulatory Compliance & Policy Adherence,keep,0.7218
+58,Review construction plans and ensure code compliance,persistent,3,72,Quality Management & Continuous Improvement,keep,0.7091
+58,Review construction plans and ensure code compliance,persistent,4,96,Following & Comprehending Instructions,keep,0.6952
+58,Review construction plans and ensure code compliance,persistent,5,38,Business Process & Operations Management,low_specificity,0.6951
+59,Analyze costs and prepare cost estimates,persistent,1,5,Budgeting & Cost Management,keep,0.8107
+59,Analyze costs and prepare cost estimates,persistent,2,1,Problem Solving & Decision Making,low_specificity,0.7807
+59,Analyze costs and prepare cost estimates,persistent,3,96,Following & Comprehending Instructions,keep,0.7387
+59,Analyze costs and prepare cost estimates,persistent,4,38,Business Process & Operations Management,low_specificity,0.7367
+59,Analyze costs and prepare cost estimates,persistent,5,0,Results Orientation & Goal Achievement,low_specificity,0.7318
+60,Analyze and improve program operations,persistent,1,1,Problem Solving & Decision Making,low_specificity,0.7893
+60,Analyze and improve program operations,persistent,2,38,Business Process & Operations Management,low_specificity,0.7549
+60,Analyze and improve program operations,persistent,3,12,General Management & Supervision,low_specificity,0.7512
+60,Analyze and improve program operations,persistent,4,7,Project & Product Management,keep,0.7393
+60,Analyze and improve program operations,persistent,5,28,Multitasking & Task Prioritization,keep,0.7365
+61,Develop and manage employee performance standards,persistent,1,82,Team Leadership & Motivation,keep,0.8236
+61,Develop and manage employee performance standards,persistent,2,98,Composure & Adaptability Under Pressure,keep,0.8124
+61,Develop and manage employee performance standards,persistent,3,12,General Management & Supervision,low_specificity,0.8069
+61,Develop and manage employee performance standards,persistent,4,28,Multitasking & Task Prioritization,keep,0.8034
+61,Develop and manage employee performance standards,persistent,5,22,Independent Work & Self-Direction,keep,0.7919
+66,Advise employees and managers on personnel matters,persistent,1,39,Human Resources Management & HR Systems,keep,0.7622
+66,Advise employees and managers on personnel matters,persistent,2,12,General Management & Supervision,low_specificity,0.7531
+66,Advise employees and managers on personnel matters,persistent,3,1,Problem Solving & Decision Making,low_specificity,0.7409
+66,Advise employees and managers on personnel matters,persistent,4,98,Composure & Adaptability Under Pressure,keep,0.7399
+66,Advise employees and managers on personnel matters,persistent,5,8,Effective Interpersonal Communication,keep,0.7355
+68,Provide HR management and advisory services,persistent,1,39,Human Resources Management & HR Systems,keep,0.8269
+68,Provide HR management and advisory services,persistent,2,12,General Management & Supervision,low_specificity,0.7657
+68,Provide HR management and advisory services,persistent,3,83,Prior Role Experience References,low_specificity,0.7467
+68,Provide HR management and advisory services,persistent,4,82,Team Leadership & Motivation,keep,0.7088
+68,Provide HR management and advisory services,persistent,5,28,Multitasking & Task Prioritization,keep,0.7001
+69,Develop and oversee procurement policies and processes,persistent,1,12,General Management & Supervision,low_specificity,0.7093
+69,Develop and oversee procurement policies and processes,persistent,2,52,Regulatory Compliance & Policy Adherence,keep,0.7006
+69,Develop and oversee procurement policies and processes,persistent,3,18,Stakeholder & Partnership Management,keep,0.7002
+69,Develop and oversee procurement policies and processes,persistent,4,38,Business Process & Operations Management,low_specificity,0.6949
+69,Develop and oversee procurement policies and processes,persistent,5,83,Prior Role Experience References,low_specificity,0.6934
+72,Manage position classification and personnel actions,persistent,1,39,Human Resources Management & HR Systems,keep,0.8429
+72,Manage position classification and personnel actions,persistent,2,12,General Management & Supervision,low_specificity,0.8197
+72,Manage position classification and personnel actions,persistent,3,83,Prior Role Experience References,low_specificity,0.8011
+72,Manage position classification and personnel actions,persistent,4,99,Recruitment & Employment Process Terms,low_specificity,0.7845
+72,Manage position classification and personnel actions,persistent,5,1,Problem Solving & Decision Making,low_specificity,0.7692
