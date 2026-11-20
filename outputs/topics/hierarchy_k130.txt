@@ -1,0 +1,193 @@
+Industrial, Field & Physical Operations  [835 statements, over_merged]
+    Testing & Quality Assurance  [19, over_merged]
+        - Software Testing & QA  [13]  (mixed_unresolved)
+        - Laboratory Testing Method Development  [4]
+        - Automation Tools & Frameworks  [2]
+    Engineering & Industrial Operations  [240, over_merged]
+        - Manufacturing Operations & Production  [47]
+        - Facility & Property Maintenance Management  [40]
+        - Laboratory Equipment & Instrumentation  [38]
+        - Electrical & Electronics Engineering  [35]
+        - Electrical Power Distribution & Substations  [31]
+        - Construction Management & Building Methods  [28]
+        - General Engineering Principles & Tools  [13]  (low_specificity)
+        - Aircraft Structures & Mechanical Systems  [8]  (mixed_unresolved)
+    Scientific Research & Data Science  [171, over_merged]
+        - Polymer Chemistry & Materials Characterization  [65]
+        - Pharmaceutical & Biotech Industry Knowledge  [45]
+        - Machine Learning & Predictive Modeling  [26]
+        - Research Methods & Experimental Design  [19]
+        - Artificial Intelligence & Generative AI  [16]
+    Travel, Driving & Transportation  [53, coherent]
+        - Job Travel Requirements  [22]
+        - Vehicle Operation & Automotive  [19]  (mixed_unresolved)
+        - Commercial Truck & Tractor-Trailer Driving  [7]  (mixed_unresolved)
+        - Transportation Sector Knowledge  [5]  (low_specificity)
+    Working Conditions, Safety & Adaptability  [140, over_merged]
+        - Workplace Safety & Protective Practices  [49]
+        - Handling Challenges and Difficult Situations  [30]  (low_specificity)
+        - Adaptability & Change Management  [22]  (mixed_unresolved)
+        - Environmental Compliance & Science  [18]
+        - Tolerance of Weather & Temperature Extremes  [17]
+        - Working Under Unusual Pressures  [4]  (low_specificity)
+    Operations, Retail & Physical Work  [212, over_merged]
+        - Inventory & Supply Chain Management  [49]
+        - Physical Lifting & Carrying Requirements  [38]
+        - Hand Tools & Equipment Items  [38]  (mixed_unresolved)
+        - Culinary Arts & Food Service  [34]
+        - Retail Store Operations & Merchandising  [34]
+        - Physical Job Demands & Mobility  [19]
+
+Email Tools & Communication  [16 statements, single_child]
+    Email Tools & Communication  [16, coherent]
+        - Email Marketing & Newsletter Creation  [6]
+        - Email & G Suite Tools  [6]
+        - Microsoft Outlook Proficiency  [4]
+
+Digital, Data & Design Technology  [705 statements, coherent]
+    Design Tools & Practice  [107, coherent]
+        - UI/UX & Interaction Design  [33]  (mixed_unresolved)
+        - Creative & Multimedia Design Software  [32]
+        - Visual Communication & Graphic Design  [24]
+        - CAD & Engineering Design Software  [18]  (mixed_unresolved)
+    Information Technology & Digital Skills  [426, over_merged]
+        - IT Systems Operations & Monitoring  [63]  (mixed_unresolved)
+        - General Technology & Emerging Tech  [53]  (low_specificity)
+        - Microsoft Office Suite Proficiency  [53]
+        - Cloud Platforms & DevOps  [49]
+        - General Computer & Software Proficiency  [47]  (low_specificity)
+        - Service & Asset Management Administration  [43]  (low_specificity)
+        - Web Development & Content Management  [41]
+        - Programming & Scripting Languages  [30]
+        - Digital Literacy & Digital Tools  [22]  (low_specificity)
+        - Standards & Compliance Acronyms  [16]  (mixed_unresolved)
+        - IT Security & Network Configuration  [9]  (mixed_unresolved)
+    Data Management & Analytics  [168, coherent]
+        - Data Analysis & Statistical Methods  [58]
+        - Database & Data Management  [43]
+        - Data Handling & Entry  [38]  (low_specificity)
+        - Data Engineering, ETL & Warehousing  [19]
+        - Microsoft SQL Server Administration  [10]
+    XML Parsing & XSLT  [4, single_child]
+        - XML Parsing & XSLT  [4]
+
+Soft Skills & Professional Competencies  [746 statements, coherent]
+    General Professional Competencies  [302, coherent]
+        - Generic Technical Skills & Proficiency  [86]  (low_specificity)
+        - Organization, Planning & Time Management  [43]
+        - Analytical & Problem-Solving Skills  [40]
+        - Interpersonal & Communication Skills  [37]  (low_specificity)
+        - Verbal & Written Communication  [34]
+        - Communication & Presentation Skills  [26]
+        - Financial & Business Acumen  [19]  (low_specificity)
+        - Mathematical & Quantitative Skills  [17]
+    Work Style & Self-Management  [228, coherent]
+        - Teamwork & Cross-Functional Collaboration  [57]
+        - Working in Fast-Paced Environments  [47]
+        - Prioritization & Time Management  [43]
+        - Independent Work & Self-Direction  [43]
+        - Multitasking & Concurrent Project Management  [38]
+    Leadership & Interpersonal Skills  [216, coherent]
+        - Communicating Complex Ideas Clearly  [52]
+        - Leadership & People Management  [43]  (low_specificity)
+        - Team Leadership & Motivation  [39]
+        - Professional Relationship Building  [33]
+        - Relationship Building & Partnerships  [29]
+        - Influencing, Persuasion & Negotiation  [20]
+
+Business & Professional Competencies  [1184 statements, coherent]
+    Professional Conduct & Integrity  [26, coherent]
+        - Confidentiality & Security Clearance  [12]
+        - Personal Integrity & Ethical Conduct  [7]
+        - Composure & Professional Demeanor  [7]
+    Communication & Professional Soft Skills  [527, over_merged]
+        - Analytical Reasoning & Evaluation  [93]  (low_specificity)
+        - Proactive Attitude & Personal Initiative  [61]  (low_specificity)
+        - Verbal & Telephone Communication  [41]  (low_specificity)
+        - Stakeholder Communication & Meetings  [35]  (low_specificity)
+        - Language Proficiency & Bilingualism  [34]
+        - Attentiveness, Listening & Curiosity  [32]  (low_specificity)
+        - Report Writing & Recordkeeping  [30]
+        - Creative & Innovative Thinking  [29]
+        - Advisory & Consultative Support  [28]  (low_specificity)
+        - Thought Leadership & Entrepreneurial Mindset  [26]  (low_specificity)
+        - Office Equipment & Document Handling  [24]  (low_specificity)
+        - Meeting Deadlines & Commitments  [24]
+        - Writing & Editing Skills  [21]
+        - Following Written & Oral Instructions  [18]
+        - Event Planning & Coordination  [16]
+        - Persuasion & Engaging Diverse Viewpoints  [15]
+    Sales, Marketing & Customer Experience  [289, over_merged]
+        - Enterprise CRM, ERP & SaaS Software  [52]
+        - Sales & Consultative Selling  [50]
+        - Digital Marketing & Advertising  [48]
+        - Customer Engagement & Relationship Management  [45]
+        - Customer Service Delivery  [43]
+        - Customer Experience Delivery  [39]
+        - Strategic Initiative Development  [12]  (low_specificity)
+    Quality & Standards Compliance  [49, coherent]
+        - Adherence to Standards & Procedures  [23]  (low_specificity)
+        - Quality Assurance & Quality Control  [20]
+        - ISO & AS9100 Quality Management Standards  [6]
+    Management, Strategy & Problem Solving  [293, over_merged]
+        - Project & Program Management  [39]
+        - Strategic Thinking & Planning  [39]
+        - Problem Solving & Decision Making  [37]
+        - Business Process Management  [35]  (low_specificity)
+        - Agile Software Development Practices  [34]
+        - Solution Design & Architecture  [33]  (low_specificity)
+        - Performance Management & Metrics  [21]  (low_specificity)
+        - Technical Troubleshooting & Corrective Action  [20]
+        - Organizational Development & Change  [15]  (mixed_unresolved)
+        - Continuous Process Improvement  [11]
+        - Proven Track Record of Success  [9]  (low_specificity)
+
+Licenses, Certifications & Credentials  [80 statements, single_child]
+    Licenses, Certifications & Credentials  [80, coherent]
+        - Professional Certifications & Credentials  [52]  (low_specificity)
+        - State Professional Licensure  [15]
+        - Valid Driver's License & Passport  [7]
+        - Professional & Commercial Licenses  [6]
+
+Hiring, Training & Qualifications  [411 statements, coherent]
+    Employment Terms & Hiring  [215, over_merged]
+        - Human Resources & Talent Acquisition  [62]
+        - Flexible Scheduling & Shift Availability  [56]
+        - Remote & Hybrid Work Arrangements  [43]  (low_specificity)
+        - Job Search & Employment Terms  [40]  (low_specificity)
+        - Internships & Academic Coursework  [14]  (low_specificity)
+    Education, Training & Credentials  [196, coherent]
+        - K-12 Education & Student Services  [59]  (low_specificity)
+        - Instructional Design & Pedagogy  [46]
+        - Employee Training & Development  [35]  (low_specificity)
+        - Accredited Academic Institution Requirements  [25]  (low_specificity)
+        - Educational Degree Requirements  [25]  (low_specificity)
+        - Professional & People Development  [6]  (low_specificity)
+
+Sector Domain Knowledge & Management  [667 statements, over_merged]
+    Business, Finance & Legal Knowledge  [400, coherent]
+        - General Business & Market Concepts  [83]  (low_specificity)
+        - Legal Practice & Litigation  [73]
+        - Consumer Lending & Credit Products  [50]  (mixed_unresolved)
+        - Accounting, Tax & Financial Control  [46]
+        - Banking & Financial Services Domain  [41]  (low_specificity)
+        - Industry Sector Knowledge  [38]  (low_specificity)
+        - Regulatory Compliance & Policy Adherence  [37]
+        - Contract Negotiation & Administration  [18]
+        - State & California Legal Compliance  [8]  (mixed_unresolved)
+        - Insurance Products & Contracting  [6]
+    Supervision & People Management  [55, over_merged]
+        - Supervisory & Management Experience  [46]  (low_specificity)
+        - Supervision & Supervisory Capacity  [5]  (low_specificity)
+        - Court-Ordered Community Supervision  [2]
+        - Working Independently with Minimal Supervision  [2]  (low_specificity)
+    Public, Health & Community Service Contexts  [212, over_merged]
+        - Healthcare & Clinical Care Settings  [76]  (low_specificity)
+        - Government & Public Sector Context  [42]  (low_specificity)
+        - Community Outreach & Social Services  [29]  (mixed_unresolved)
+        - Local Geography & Municipal Land Use  [26]  (mixed_unresolved)
+        - Biblical Worldview & Christian Faith  [14]
+        - Mental & Behavioral Health Care  [12]  (mixed_unresolved)
+        - Lived Experience & Personal Background  [5]  (low_specificity)
+        - Substance Use & Chemical Dependency  [4]
+        - Sexual Harassment & Title IX Compliance  [4]

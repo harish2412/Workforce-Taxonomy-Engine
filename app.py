@@ -5,7 +5,7 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
-LABELS_PATH = "data/processed/cluster_labels_k30.npy"  # swap to _k80.npy to demo that version instead
+LABELS_PATH = "data/processed/topic_labels_k100_refined.npy"
 
 st.set_page_config(page_title="Skill Taxonomy Engine", layout="wide")
 

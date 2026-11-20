@@ -1,0 +1,147 @@
+Foundational Transferable Skills  [318 statements, coherent]
+    General Soft Skills & Competencies  [307, coherent]
+        - Generic Skills & Skill Development  [89]  (low_specificity)
+        - Communication & Interpersonal Skills  [69]
+        - Verbal & Written Communication  [51]
+        - Analytical & Problem-Solving Skills  [50]
+        - Organization & Time Management  [48]
+    Mathematical & Calculation Skills  [11, single_child]
+        - Mathematical & Calculation Skills  [11]
+
+Soft Skills & Employment Conditions  [648 statements, over_merged]
+    Employment Terms & HR Practices  [226, over_merged]
+        - Work Schedule Flexibility & Availability  [89]
+        - Recruitment & Employment Process Terms  [64]  (low_specificity)
+        - Human Resources Management & HR Systems  [57]
+        - Prior Role Experience References  [16]  (low_specificity)
+    Self-Management & Work Resilience  [203, coherent]
+        - Multitasking & Task Prioritization  [84]
+        - Independent Work & Self-Direction  [43]
+        - Fast-Paced & High-Pressure Work  [43]
+        - Composure & Adaptability Under Pressure  [33]
+    Leadership, Collaboration & Relationships  [219, coherent]
+        - Teamwork & Cross-Functional Collaboration  [60]
+        - Leadership & People Management  [53]  (low_specificity)
+        - Team Leadership & Motivation  [37]
+        - Stakeholder & Partnership Management  [35]
+        - Relationship Building & Management  [34]
+
+Commercial, Customer & Enterprise Systems  [491 statements, over_merged]
+    Enterprise Software & Cloud Platforms  [138, over_merged]
+        - Cloud Platforms & Containerization  [56]
+        - Generic Service-Related Terms  [27]  (low_specificity)
+        - ERP & Business Management Software  [24]  (mixed_unresolved)
+        - CRM Platforms & B2B SaaS  [20]  (mixed_unresolved)
+        - IT Service Management & SOA  [11]  (mixed_unresolved)
+    Customer Service & Experience  [116, coherent]
+        - Customer Experience & Engagement  [63]
+        - Customer Service & Client Support  [53]
+    Business, Sales & Marketing  [237, coherent]
+        - Business Acumen & Market Analysis  [76]  (low_specificity)
+        - Digital & Social Media Marketing  [57]
+        - Sales Methods & Selling Skills  [49]
+        - Industry Domain Knowledge  [42]  (low_specificity)
+        - Brand Strategy & Development  [13]
+
+Core Professional & Analytical Skills  [1049 statements, coherent]
+    Problem Solving & Strategic Thinking  [328, coherent]
+        - Creative & Entrepreneurial Mindset  [87]
+        - Results Orientation & Goal Achievement  [60]  (low_specificity)
+        - Problem Solving & Decision Making  [55]  (low_specificity)
+        - Complex Problem Solving  [55]  (low_specificity)
+        - Strategic Thinking & Planning  [40]
+        - Solution Design & Architecture  [31]  (low_specificity)
+    Management, Operations & Quality  [243, over_merged]
+        - General Management & Supervision  [75]  (low_specificity)
+        - Business Process & Operations Management  [52]  (low_specificity)
+        - Project & Product Management  [43]
+        - Software Development & Agile Practices  [43]
+        - Quality Management & Continuous Improvement  [30]
+    Workplace Communication Skills  [219, over_merged]
+        - Effective Interpersonal Communication  [73]
+        - Written Communication & Editing  [40]
+        - Following & Comprehending Instructions  [38]
+        - Workplace Communication Tools & Channels  [37]
+        - Document, File & Records Handling  [31]  (mixed_unresolved)
+    Data, Analytics & Evaluation  [259, coherent]
+        - Databases, SQL & Data Warehousing  [66]
+        - Testing, Evaluation & Reporting  [62]  (low_specificity)
+        - General Data Handling & Analysis  [49]  (low_specificity)
+        - Quantitative & Statistical Analysis Methods  [43]
+        - Machine Learning & Data Science  [39]
+
+Digital & Web Technology Skills  [364 statements, coherent]
+    Web Markup & Scripting Languages  [9, coherent]
+        - Front-End Web Languages (HTML, CSS, JavaScript)  [5]
+        - XML Parsing & XSLT  [4]
+    Digital Tools & Software Proficiency  [355, coherent]
+        - General Digital Technology Use  [66]  (low_specificity)
+        - Visual, Graphic & UX Design  [64]
+        - Microsoft Office Suite Proficiency  [55]
+        - System Administration & Configuration  [48]  (low_specificity)
+        - Basic Computer & PC Skills  [47]
+        - Web Content & Collaboration Tools  [37]  (mixed_unresolved)
+        - Graphic Design & Media Editing Software  [25]
+        - CAD & 3D Design Software  [13]
+
+Professional Domains, Compliance & Credentials  [787 statements, over_merged]
+    Education, Training & Credentials  [204, coherent]
+        - K-12 School Education & Student Services  [61]  (low_specificity)
+        - Teaching, Pedagogy & Instructional Design  [50]
+        - Accredited Degrees & Academic Credentials  [47]  (low_specificity)
+        - Employee Training & Professional Development  [37]  (low_specificity)
+        - Advanced & Graduate Degree Requirements  [9]
+    Finance, Accounting & Banking  [147, coherent]
+        - Financial Acumen & Management  [37]  (low_specificity)
+        - Banking Products & Consumer Lending  [36]  (mixed_unresolved)
+        - Financial Transactions & Statements  [31]  (mixed_unresolved)
+        - Accounting & Tax Compliance  [26]
+        - Budgeting & Cost Management  [17]
+    Licenses & Certifications  [84, coherent]
+        - Professional Certifications & Credentials  [52]  (low_specificity)
+        - Professional & Driver Licensure  [32]
+    Legal, Regulatory & Government Domains  [347, over_merged]
+        - Healthcare & Clinical Patient Care  [92]  (low_specificity)
+        - Legal Practice & Litigation  [89]
+        - Regulatory Compliance & Policy Adherence  [65]
+        - Public Sector & Nonprofit Organizations  [57]  (low_specificity)
+        - Military, Defense & Government Service  [23]  (mixed_unresolved)
+        - Information Security & Cybersecurity Practices  [21]
+    Trademark Prosecution & IP Offices  [5, single_child]
+        - Trademark Prosecution & IP Offices  [5]
+
+Transportation, Travel & Aviation  [64 statements, coherent]
+    Travel, Transportation & Vehicle Operation  [61, coherent]
+        - Vehicle Operation & Transportation  [21]  (mixed_unresolved)
+        - Business Travel Requirements  [20]  (low_specificity)
+        - Vehicle & Material Handling Equipment Operation  [13]  (mixed_unresolved)
+        - Aviation Operations & Regulatory Knowledge  [5]
+        - Transportation Operations & Economics  [2]
+    Aircraft Interior Products  [3, single_child]
+        - Aircraft Interior Products  [3]  (low_specificity)
+
+Operational, Industrial & Applied Trades  [685 statements, over_merged]
+    Chemistry & Laboratory Sciences  [149, coherent]
+        - Polymer Chemistry & Materials Science  [46]
+        - Pharmaceutical & Biotech Industry Knowledge  [43]
+        - Analytical & Synthetic Chemistry Techniques  [33]
+        - Laboratory Operations & Equipment  [27]
+    Work Environments & Conditions  [51, over_merged]
+        - Environmental Science & Regulatory Compliance  [20]
+        - Work Environment Familiarity  [15]  (low_specificity)
+        - Adaptability to Changing Conditions  [8]
+        - Tolerance of Weather & Temperature Extremes  [8]
+    Hospitality, Food & Events  [66, coherent]
+        - Culinary Arts & Food Service  [32]
+        - Event Planning & Corporate Events  [20]  (mixed_unresolved)
+        - Hospitality & Guest Experience  [14]
+    Operations, Facilities & Industrial Work  [419, over_merged]
+        - Industrial Equipment & Facility Maintenance  [96]  (low_specificity)
+        - Retail Store & Facility Settings  [57]  (low_specificity)
+        - Workplace Safety & PPE Compliance  [46]
+        - Supply Chain, Inventory & Warehouse Management  [44]
+        - Construction & Building Maintenance  [42]
+        - Electrical & Electronic Engineering  [41]
+        - Product Management & Commercialization  [38]  (low_specificity)
+        - Physical Lifting & Manual Labor Requirements  [35]
+        - Real Estate & Property Management  [20]

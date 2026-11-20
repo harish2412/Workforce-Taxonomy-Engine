@@ -1,0 +1,154 @@
+topic,name,status,size,coverage_0.7,mean_similarity,purity_l1,purity_l2,top_esco_group_l1,nearest_esco_skills
+0,"Organization, Planning & Time Management",keep,43,0.953,0.773,0.683,0.366,management skills,own management skills; apply organisational techniques; develop personal skills
+1,Industry Sector Knowledge,low_specificity,38,0.868,0.774,0.394,0.242,"engineering, manufacturing and construction",capital goods industry; construction industry; telecommunication industry
+2,Digital Literacy & Digital Tools,low_specificity,22,1.0,0.788,0.273,0.273,arts and humanities,share through digital technologies; digital media; interact through digital technologies
+3,Teamwork & Cross-Functional Collaboration,keep,57,0.965,0.818,0.636,0.582,social and communication skills and competences,work in teams; cooperate with colleagues; teamwork principles
+4,Physical Job Demands & Mobility,keep,19,0.842,0.748,0.312,0.188,management skills,assist in performing physical exercises; movement techniques; carry out physical training
+6,Web Development & Content Management,keep,41,0.854,0.78,0.343,0.343,information and communication technologies (icts),web programming; web based collaborative platforms; web services
+7,Technical Troubleshooting & Corrective Action,keep,20,1.0,0.81,0.4,0.35,"communication, collaboration and creativity",troubleshoot; identify problems; resolve equipment malfunctions
+9,Strategic Initiative Development,low_specificity,12,0.917,0.772,0.273,0.273,"communication, collaboration and creativity",develop campaigns; assist in developing marketing campaigns; implement marketing strategies
+10,Prioritization & Time Management,keep,43,0.93,0.777,0.65,0.525,management skills,establish daily priorities; manage time; apply organisational techniques
+13,Language Proficiency & Bilingualism,keep,34,1.0,0.814,0.529,0.529,core skills and competences,modern languages; teach languages; English
+14,Microsoft SQL Server Administration,keep,10,0.9,0.82,0.889,0.889,information and communication technologies (icts),SQL Server; database; SQL Server Integration Services
+15,Report Writing & Recordkeeping,keep,30,0.933,0.795,0.536,0.393,"communication, collaboration and creativity",write technical reports; present reports; write routine reports
+16,Microsoft Office Suite Proficiency,keep,53,0.906,0.796,0.729,0.646,working with computers,use microsoft office; office software; use office systems
+17,Internships & Academic Coursework,low_specificity,14,0.5,0.711,0.714,0.571,"communication, collaboration and creativity",work in vocational school; provide assistance with job search; provide career counselling
+18,Project & Program Management,keep,39,1.0,0.846,0.487,0.487,"business, administration and law",project management; perform project management; program management
+19,Cloud Platforms & DevOps,keep,49,0.837,0.763,0.683,0.683,information and communication technologies (icts),cloud technologies; develop with cloud services; design cloud networks
+20,Employee Training & Development,low_specificity,35,0.971,0.781,0.5,0.353,"communication, collaboration and creativity",train employees; organise training; keep up-to-date with training subjects
+21,Tolerance of Weather & Temperature Extremes,keep,17,1.0,0.806,0.588,0.588,assisting and caring,work in cold environments; work in inclement conditions; adapt to different weather conditions
+22,Thought Leadership & Entrepreneurial Mindset,low_specificity,26,0.846,0.771,0.273,0.273,management skills,develop creative ideas; keep up with trends; entrepreneurship
+24,"Data Engineering, ETL & Warehousing",keep,19,0.842,0.79,0.938,0.938,information and communication technologies (icts),data engineering; data warehouse; Pentaho Data Integration
+25,General Computer & Software Proficiency,low_specificity,47,0.915,0.793,0.442,0.442,information and communication technologies (icts),computer equipment; computer technology; use ICT resources to solve work related tasks
+26,Research Methods & Experimental Design,keep,19,0.895,0.792,0.529,0.412,information skills,research design; action research; conduct quantitative research
+27,Customer Engagement & Relationship Management,keep,45,0.933,0.809,0.381,0.31,"communication, collaboration and creativity",customer insight; customer relationship management; customer service
+28,Performance Management & Metrics,low_specificity,21,1.0,0.787,0.381,0.238,management skills,conduct performance measurement; communicate performance aspects; performance diagnosis
+30,Accredited Academic Institution Requirements,low_specificity,25,0.8,0.738,0.35,0.2,"business, administration and law",university procedures; liaise with educational institutions; post-secondary school procedures
+31,Construction Management & Building Methods,keep,28,1.0,0.811,0.643,0.643,"engineering, manufacturing and construction",construction industry; construction methods; building construction principles
+32,Instructional Design & Pedagogy,keep,46,0.957,0.836,0.591,0.568,education,pedagogy; instructional strategies; apply teaching strategies
+33,Agile Software Development Practices,keep,34,0.971,0.801,0.576,0.576,information and communication technologies (icts),Agile development; iterative development; systems development life-cycle
+34,Sales & Consultative Selling,keep,50,0.98,0.795,0.449,0.449,"business, administration and law",sales activities; sales strategies; sales argumentation
+35,Strategic Thinking & Planning,keep,39,0.923,0.798,0.5,0.472,"business, administration and law",strategic planning; implement strategic planning; apply strategic thinking
+36,Professional Certifications & Credentials,low_specificity,52,0.385,0.695,0.25,0.2,assisting and caring,obtain relevant licenses; provide homologation management services; issue permits
+37,Proactive Attitude & Personal Initiative,low_specificity,61,0.902,0.767,0.509,0.327,self-management skills and competences,think proactively; keep an open mind; act reliably
+38,Polymer Chemistry & Materials Characterization,keep,65,0.815,0.784,0.377,0.358,"engineering, manufacturing and construction",polymerisation; polymer chemistry; synthetic resins
+39,Electrical & Electronics Engineering,keep,35,0.943,0.857,0.667,0.606,"engineering, manufacturing and construction",electronics; electronic components; electrical engineering
+41,Persuasion & Engaging Diverse Viewpoints,keep,15,0.867,0.777,0.538,0.385,"communication, collaboration and creativity",present arguments persuasively; engage in debates; hear legal arguments
+42,"Attentiveness, Listening & Curiosity",low_specificity,32,0.844,0.772,0.444,0.222,self-management skills and competences,attend to detail; listen actively; practice vigilance
+43,Advisory & Consultative Support,low_specificity,28,0.964,0.786,0.481,0.37,"communication, collaboration and creativity",provide ICT consulting advice; assist customers; counsel clients
+44,Stakeholder Communication & Meetings,low_specificity,35,0.857,0.77,0.6,0.5,"communication, collaboration and creativity",engage with stakeholders; communicate with stakeholders; manage relationships with stakeholders
+47,Writing & Editing Skills,keep,21,1.0,0.821,0.381,0.286,"communication, collaboration and creativity",draw up professional texts; writing techniques; use specific writing techniques
+49,Analytical & Problem-Solving Skills,keep,40,0.925,0.759,0.405,0.243,thinking skills and competences,think analytically; apply business acumen; develop strategy to solve problems
+50,Physical Lifting & Carrying Requirements,keep,38,0.921,0.774,0.686,0.571,handling and moving,lift heavy weights; operate lifting equipment; assist in the movement of heavy loads
+51,"Enterprise CRM, ERP & SaaS Software",keep,52,0.712,0.743,0.351,0.27,working with computers,use customer relationship management software; SAP R3; manage standard enterprise resource planning system
+52,Generic Technical Skills & Proficiency,low_specificity,86,0.953,0.769,0.439,0.329,"communication, collaboration and creativity",develop personal skills; own management skills; identify skills gaps
+53,Mathematical & Quantitative Skills,keep,17,0.941,0.807,0.562,0.562,core skills and competences,apply numeracy skills; quantitative analysis; mathematics
+54,Working in Fast-Paced Environments,keep,47,0.915,0.756,0.605,0.419,self-management skills and competences,cope with challenging demands; deal with challenging work conditions; work efficiently
+55,Leadership & People Management,low_specificity,43,0.93,0.782,0.5,0.5,generic programmes and qualifications,leadership principles; lead a team; lead others
+56,"Accounting, Tax & Financial Control",keep,46,0.848,0.78,0.462,0.462,"business, administration and law",accounting; use accounting systems; accounting techniques
+57,Service & Asset Management Administration,low_specificity,43,0.953,0.801,0.366,0.293,management skills,manage customer service; manage administrative systems; provide homologation management services
+58,Legal Practice & Litigation,keep,73,0.904,0.786,0.394,0.333,"business, administration and law",assist with litigation matters; public law; private law
+60,Data Handling & Entry,low_specificity,38,0.816,0.773,0.419,0.419,working with computers,manage quantitative data; perform data mining; data models
+61,Government & Public Sector Context,low_specificity,42,0.905,0.777,0.5,0.474,"social sciences, journalism and information",public administration; government policy; public finance
+62,Independent Work & Self-Direction,keep,43,0.93,0.789,0.725,0.6,self-management skills and competences,work independently; perform manual work autonomously; work efficiently
+63,Electrical Power Distribution & Substations,keep,31,0.871,0.798,0.37,0.296,"engineering, manufacturing and construction",manage electricity transmission system; power engineering; operate pumping systems
+64,Verbal & Telephone Communication,low_specificity,41,0.902,0.793,0.27,0.27,generic programmes and qualifications,communication; communicate by telephone; use communication techniques
+65,Job Search & Employment Terms,low_specificity,40,0.9,0.772,0.556,0.472,"communication, collaboration and creativity",provide assistance with job search; provide career counselling; outplacement
+66,Healthcare & Clinical Care Settings,low_specificity,76,0.868,0.78,0.364,0.364,health and welfare,health care system; acute care; coordinate care
+67,K-12 Education & Student Services,low_specificity,59,0.864,0.762,0.294,0.294,education,liaise with educational institutions; adult education; assist students in their learning
+69,"Influencing, Persuasion & Negotiation",keep,20,0.85,0.766,0.647,0.471,"communication, collaboration and creativity",negotiate with stakeholders; engage with stakeholders; manage relationships with stakeholders
+71,Problem Solving & Decision Making,keep,37,0.973,0.805,0.667,0.639,thinking skills and competences,solve problems; develop strategy to solve problems; identify problems
+72,Flexible Scheduling & Shift Availability,keep,56,0.821,0.763,0.826,0.804,self-management skills and competences,work in shifts; follow work schedule; perform office routine activities
+74,Human Resources & Talent Acquisition,keep,62,0.903,0.793,0.571,0.446,"business, administration and law",hire human resources; human resource management; personnel management
+75,Verbal & Written Communication,keep,34,0.882,0.748,0.767,0.667,"communication, collaboration and creativity",apply technical communication skills; business communication; communication
+76,Regulatory Compliance & Policy Adherence,keep,37,0.919,0.783,0.441,0.412,social and communication skills and competences,comply with regulations; keep up-to-date with regulations; comply with legal regulations
+77,Data Analysis & Statistical Methods,keep,58,0.966,0.827,0.321,0.268,information skills,data analytics; business analytics; perform data analysis
+78,Supervisory & Management Experience,low_specificity,46,0.848,0.775,0.538,0.308,management skills,manage human resources; personnel management; manage a team
+79,Database & Data Management,keep,43,0.953,0.816,0.634,0.634,information and communication technologies (icts),database; database management systems; CA Datacom/DB
+80,Multitasking & Concurrent Project Management,keep,38,0.974,0.813,0.811,0.784,management skills,manage several projects; perform multiple tasks at the same time; perform project management
+81,Pharmaceutical & Biotech Industry Knowledge,keep,45,0.911,0.837,0.585,0.585,health and welfare,biotechnology; pharmaceutical industry; life sciences
+83,Job Travel Requirements,keep,22,0.909,0.752,0.45,0.45,self-management skills and competences,devise tailor-made tourism itineraries; provide tourism related information; analyse travel alternatives
+85,Machine Learning & Predictive Modeling,keep,26,0.962,0.8,0.72,0.48,information and communication technologies (icts),machine learning; data science; deep learning
+86,Handling Challenges and Difficult Situations,low_specificity,30,0.9,0.753,0.593,0.407,self-management skills and competences,deal with challenging work conditions; cope with challenging demands; deal with challenging people
+87,Analytical Reasoning & Evaluation,low_specificity,93,0.86,0.761,0.163,0.075,information skills,act reliably; plan evaluation; plan
+88,Following Written & Oral Instructions,keep,18,1.0,0.825,0.889,0.778,"communication, collaboration and creativity",follow written instructions; follow verbal instructions; communicate verbal instructions
+90,Environmental Compliance & Science,keep,18,1.0,0.807,0.5,0.389,"natural sciences, mathematics and statistics",environmental policy; environmental legislation; environmental design
+91,Solution Design & Architecture,low_specificity,33,0.818,0.765,0.556,0.37,"communication, collaboration and creativity",propose ICT solutions to business problems; create solutions to problems; advise on sustainability solutions
+92,Retail Store Operations & Merchandising,keep,34,0.941,0.774,0.25,0.156,"communication, collaboration and creativity",direct customers to merchandise; merchandising techniques; store design layout
+94,Remote & Hybrid Work Arrangements,low_specificity,43,0.651,0.732,0.464,0.429,self-management skills and competences,work in shifts; perform office routine activities; work efficiently
+95,Customer Experience Delivery,keep,39,0.974,0.787,0.789,0.711,assisting and caring,design customer experiences; manage the customer experience; customer service
+96,Creative & Innovative Thinking,keep,29,0.966,0.805,0.643,0.5,thinking skills and competences,think innovatively; develop creative ideas; think creatively
+97,Culinary Arts & Food Service,keep,34,0.853,0.793,0.345,0.276,services,food homogenisation; food and beverages on the menu; food materials
+98,Interpersonal & Communication Skills,low_specificity,37,0.946,0.753,0.543,0.143,"communication, collaboration and creativity",own management skills; develop personal skills; apply technical communication skills
+100,Workplace Safety & Protective Practices,keep,49,0.98,0.835,0.5,0.479,assisting and caring,act with a high level of safety awareness; work with respect for own safety; follow safety precautions in work practices
+101,Team Leadership & Motivation,keep,39,0.897,0.81,0.857,0.829,social and communication skills and competences,lead a team; manage a team; lead others
+102,Creative & Multimedia Design Software,keep,32,0.938,0.821,0.533,0.533,information and communication technologies (icts),adobe creative suite; Adobe Illustrator; motion graphics
+103,Financial & Business Acumen,low_specificity,19,1.0,0.812,0.474,0.421,management skills,apply business acumen; financial management; financial capability
+104,Customer Service Delivery,keep,43,0.953,0.821,0.463,0.463,"business, administration and law",customer service; maintain customer service; manage customer service
+107,Manufacturing Operations & Production,keep,47,0.979,0.817,0.457,0.217,"engineering, manufacturing and construction",production processes; manufacturing processes; production engineering
+108,Programming & Scripting Languages,keep,30,0.833,0.781,0.56,0.56,information and communication technologies (icts),web programming; use automatic programming; JavaScript
+109,Educational Degree Requirements,low_specificity,25,0.32,0.686,0.25,0.25,education,post-secondary school procedures; adult education; provide information on study programmes
+110,Proven Track Record of Success,low_specificity,9,0.556,0.712,0.4,0.4,"communication, collaboration and creativity",perform records management; demonstrate trustworthiness; apply business acumen
+112,Adherence to Standards & Procedures,low_specificity,23,0.826,0.78,0.474,0.474,"business, administration and law",quality standards; maintain work standards; define quality standards
+114,Biblical Worldview & Christian Faith,keep,14,0.786,0.745,0.727,0.727,arts and humanities,theology; teach religious texts; torah
+115,Professional Relationship Building,keep,33,0.97,0.802,1.0,0.531,"communication, collaboration and creativity",manage relationships with stakeholders; maintain relationship with customers; build business relationships
+116,Business Process Management,low_specificity,35,0.971,0.812,0.412,0.324,"business, administration and law",business processes; production processes; operations department processes
+117,General Technology & Emerging Tech,low_specificity,53,0.925,0.777,0.327,0.306,information and communication technologies (icts),emergent technologies; computer technology; cloud technologies
+118,Artificial Intelligence & Generative AI,keep,16,0.875,0.789,0.429,0.429,information and communication technologies (icts),cognitive computing; principles of artificial intelligence; natural language processing
+119,Facility & Property Maintenance Management,keep,40,0.975,0.819,0.333,0.179,"engineering, manufacturing and construction",advise on building matters; manage office facility systems; maintain construction structures
+120,Inventory & Supply Chain Management,keep,49,1.0,0.834,0.429,0.429,"business, administration and law",manage logistics; manage supplies; manage inventory
+121,Laboratory Equipment & Instrumentation,keep,38,0.974,0.803,0.27,0.216,working with machinery and specialised equipment,use laboratory equipment; laboratory equipment; instrumentation equipment
+122,General Business & Market Concepts,low_specificity,83,0.843,0.772,0.571,0.486,"business, administration and law",business knowledge; apply business acumen; international business
+123,Relationship Building & Partnerships,keep,29,0.931,0.799,0.63,0.63,"communication, collaboration and creativity",establish collaborative relations; build business relationships; build community relations
+124,Communicating Complex Ideas Clearly,keep,52,0.904,0.768,0.745,0.362,"communication, collaboration and creativity",communicate analytical insights; advise on communication strategies; communicate with stakeholders
+125,Communication & Presentation Skills,keep,26,1.0,0.791,0.692,0.423,"communication, collaboration and creativity",apply technical communication skills; speech techniques; business communication
+126,Digital Marketing & Advertising,keep,48,1.0,0.835,0.688,0.688,"business, administration and law",assist in developing marketing campaigns; channel marketing; marketing management
+127,Meeting Deadlines & Commitments,keep,24,0.917,0.809,0.591,0.591,self-management skills and competences,meet deadlines; meet commitments; manage time
+128,Quality Assurance & Quality Control,keep,20,1.0,0.82,0.55,0.55,self-management skills and competences,manage quality; quality assurance procedures; quality control systems
+129,Banking & Financial Services Domain,low_specificity,41,0.902,0.799,0.676,0.649,"business, administration and law",financial products; carry out financial transactions; financial management
+130,Lived Experience & Personal Background,low_specificity,5,0.6,0.711,0.333,0.333,generic programmes and qualifications,direct movement experiences; profile people; brief volunteers
+132,Community Outreach & Social Services,mixed_unresolved,29,0.828,0.786,0.458,0.208,"communication, collaboration and creativity",assist community; work within communities; community education
+133,Insurance Products & Contracting,keep,6,1.0,0.827,0.667,0.667,"business, administration and law",insurance market; advise on insurance policies; insurance law
+134,Consumer Lending & Credit Products,mixed_unresolved,50,0.84,0.761,0.286,0.262,management skills,carry out financial transactions; assist in loan applications; provide financial product information
+135,Contract Negotiation & Administration,keep,18,0.944,0.78,0.647,0.471,"communication, collaboration and creativity",contract law; negotiate library contracts; conclude business agreements
+137,IT Systems Operations & Monitoring,mixed_unresolved,63,0.746,0.763,0.362,0.362,information and communication technologies (icts),manage production systems; operate digital hardware; manage administrative systems
+138,IT Security & Network Configuration,mixed_unresolved,9,0.667,0.742,0.333,0.333,"communication, collaboration and creativity",manage system security; manage IT security compliances; apply digital security measures
+139,Aircraft Structures & Mechanical Systems,mixed_unresolved,8,0.875,0.781,0.429,0.429,"engineering, manufacturing and construction",aircraft mechanics; report anomalies in aircraft interiors; manage aircraft support systems
+140,CAD & Engineering Design Software,mixed_unresolved,18,0.722,0.77,0.308,0.308,"communication, collaboration and creativity",create CAD drawings; design drawings; design automation components
+141,General Engineering Principles & Tools,low_specificity,13,1.0,0.832,0.538,0.538,"engineering, manufacturing and construction",engineering principles; examine engineering principles; engineering processes
+143,Hand Tools & Equipment Items,mixed_unresolved,38,0.842,0.787,0.25,0.156,"engineering, manufacturing and construction",design utility equipment; mechanical tools; use wrenches
+144,Mental & Behavioral Health Care,mixed_unresolved,12,0.75,0.763,0.444,0.444,"social sciences, journalism and information",provide health psychological analysis; provide health psychological advice; history of patient's psychotherapeutic problems
+145,Substance Use & Chemical Dependency,keep,4,1.0,0.871,0.5,0.5,health and welfare,dependency on drugs; detect drug abuse; illegal substances
+146,Sexual Harassment & Title IX Compliance,keep,4,0.75,0.741,0.667,0.667,"social sciences, journalism and information",sexual disorders; sexology; victimology
+147,Microsoft Outlook Proficiency,keep,4,1.0,0.741,0.5,0.5,working with computers,use microsoft office; office software; operate mailing information systems
+148,Email Marketing & Newsletter Creation,keep,6,1.0,0.766,0.833,0.5,"communication, collaboration and creativity",draft corporate emails; newsletter analysis; execute email marketing
+149,Email & G Suite Tools,keep,6,0.667,0.731,0.25,0.25,assisting and caring,operate mailing information systems; manage email hosting service; organise mail deliveries
+150,Professional & People Development,low_specificity,6,0.667,0.786,0.5,0.5,management skills,personal development; manage personal professional development; develop personal skills
+151,Organizational Development & Change,mixed_unresolved,15,0.933,0.808,0.571,0.571,"business, administration and law",organisational learning; organisational structure; design for organisational complexity
+152,Continuous Process Improvement,keep,11,1.0,0.833,0.455,0.455,"business, administration and law",continuous improvement philosophies; create a work atmosphere of continuous improvement; provide improvement strategies
+153,Supervision & Supervisory Capacity,low_specificity,5,1.0,0.822,0.8,0.8,"business, administration and law",supervision of persons; supervise work; supervise staff
+154,Court-Ordered Community Supervision,keep,2,1.0,0.771,1.0,1.0,"business, administration and law",supervision of persons; supervise correctional procedures; assist community
+155,Working Independently with Minimal Supervision,low_specificity,2,1.0,0.731,0.5,0.5,"business, administration and law",supervision of persons; supervise work; supervise staff
+156,XML Parsing & XSLT,keep,4,0.5,0.707,1.0,1.0,information and communication technologies (icts),XQuery; AJAX; use markup languages
+157,Office Equipment & Document Handling,low_specificity,24,0.958,0.817,0.304,0.174,information skills,file documents; digitise documents; manage digital documents
+158,Event Planning & Coordination,keep,16,0.75,0.747,0.917,0.833,management skills,arrange special events; plan events; plan presence at professional events
+161,Adaptability & Change Management,mixed_unresolved,22,0.909,0.776,0.5,0.35,"communication, collaboration and creativity",adapt to change; adapt to changing situations; apply change management
+162,Working Under Unusual Pressures,low_specificity,4,1.0,0.74,0.75,0.5,self-management skills and competences,deal with pressure from unexpected circumstances; tolerate stress; work on uneven surfaces
+163,Personal Integrity & Ethical Conduct,keep,7,0.857,0.747,0.5,0.5,social and communication skills and competences,demonstrate trustworthiness; morality; act reliably
+164,Composure & Professional Demeanor,keep,7,1.0,0.815,0.714,0.714,assisting and caring,react calmly in stressful situations; maintain a non-emotional involvement; tolerate stress
+165,Confidentiality & Security Clearance,keep,12,1.0,0.838,0.75,0.667,social and communication skills and competences,respect confidentiality obligations; information confidentiality; maintain privacy
+166,ISO & AS9100 Quality Management Standards,keep,6,0.667,0.728,1.0,1.0,self-management skills and competences,quality control systems; implement quality management systems; support implementation of quality management systems
+167,Standards & Compliance Acronyms,mixed_unresolved,16,0.75,0.721,0.25,0.25,"engineering, manufacturing and construction",use ICT systems; manage IT security compliances; issue licences
+168,Transportation Sector Knowledge,low_specificity,5,1.0,0.822,0.6,0.6,services,transportation methods; markets for modes of transport; transportation sector policies
+169,Vehicle Operation & Automotive,mixed_unresolved,19,0.947,0.809,0.222,0.167,"communication, collaboration and creativity",drive vehicles; advise customers on motor vehicles; carsharing
+170,Commercial Truck & Tractor-Trailer Driving,mixed_unresolved,7,0.857,0.787,0.5,0.5,handling and moving,manoeuvre heavy trucks; drive mobile heavy construction equipment; drive chipper truck
+171,State & California Legal Compliance,mixed_unresolved,8,0.875,0.737,0.714,0.714,"business, administration and law",public law; private law; employment law
+172,State Professional Licensure,keep,15,0.533,0.69,0.625,0.625,assisting and caring,obtain relevant licenses; issue licences; licences regulation
+173,Visual Communication & Graphic Design,keep,24,0.958,0.824,0.565,0.435,"communication, collaboration and creativity",design graphics; develop visual elements; manage visual communications
+174,UI/UX & Interaction Design,mixed_unresolved,33,1.0,0.848,0.424,0.242,"communication, collaboration and creativity",design application interfaces; design prototypes; design principles
+175,Laboratory Testing Method Development,keep,4,1.0,0.801,0.25,0.25,handling and moving,test procedures; perform laboratory tests; hardware testing methods
+176,Automation Tools & Frameworks,keep,2,1.0,0.838,0.5,0.5,information and communication technologies (icts),automation technology; tools for ICT test automation; develop automated software tests
+177,Software Testing & QA,mixed_unresolved,13,0.846,0.751,0.364,0.364,management skills,test procedures; conduct performance tests; manage system testing
+178,Professional & Commercial Licenses,keep,6,0.5,0.701,0.667,0.667,assisting and caring,obtain relevant licenses; driver's license structure; issue licences
+179,Valid Driver's License & Passport,keep,7,0.857,0.759,0.667,0.667,services,driver's license structure; issue permits; check official documents
+182,Local Geography & Municipal Land Use,mixed_unresolved,26,0.923,0.778,0.208,0.167,"business, administration and law",local geography; manage land resources permits; advise on use of land

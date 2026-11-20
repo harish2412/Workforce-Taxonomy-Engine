@@ -3,7 +3,6 @@ have Claude name each parent and flag ones that look over-merged.
 
 Run after refine_topics.py, e.g. `python src/build_hierarchy.py 100`.
 """
-import json
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
