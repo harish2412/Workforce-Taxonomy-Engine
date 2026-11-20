@@ -1,10 +1,10 @@
 import sys
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import umap
-import matplotlib.pyplot as plt
 
 HIGHLIGHT_COLORS = [
     "#1f77b4", "#2ca02c", "#ff7f0e", "#9467bd",

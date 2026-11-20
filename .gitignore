@@ -2,14 +2,10 @@
 .env
 __pycache__/
 *.pyc
-data/raw/
-data/esco/
-data/processed/*.csv
-outputs/figures/*.png
-*.npy
+
+# Raw source dumps - too large, not final pipeline output, regenerate if truly needed
+data/raw/linkedin_full/
 data/raw/rule_nlp_handoff/
 
-!outputs/figures/cluster_full_k30.png
-!outputs/figures/cluster_highlighted_k30.png
-!outputs/figures/cluster_full_k80.png
-!outputs/figures/cluster_highlighted_k80.png
+# Too large for a normal GitHub push (>100MB); regenerate locally with src/embed_esco.py
+data/processed/esco_embeddings.npy
